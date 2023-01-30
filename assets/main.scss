@@ -1,0 +1,150 @@
+body,
+html {
+  padding: 0;
+  margin: 0;
+  overflow-y: hidden;
+  font-size: 14px;
+  line-height: 17px;
+  transition: all 0.3s;
+}
+
+a {
+  cursor: pointer;
+  color: black;
+  text-decoration: none;
+}
+
+* {
+  font-family: Merriweather, sans-serif;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: Merriweather;
+  font-style: normal;
+  font-weight: 600;
+  src: url("../font/Merriweather-Bold.ttf") format("ttf");
+}
+
+@font-face {
+  font-family: Merriweather;
+  font-style: normal;
+  font-weight: 400;
+  src: url("../font/Merriweather-Regular.ttf") format("ttf");
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+  margin: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 0 6px var(--color-2);
+  border: 5px solid transparent;
+}
+
+.el-input {
+  &__wrapper {
+    background-color: var(--color-5) !important;
+    border-radius: 6px !important;
+    box-shadow: none !important;
+    color: black !important;
+  }
+
+  ::-webkit-input-placeholder {
+    color: black !important;
+    opacity: 0.3;
+  }
+
+  .is-focus {
+    border: none !important;
+    color: black !important;
+    background-color: var(--color-6) !important;
+  }
+
+  &__inner {
+    color: inherit !important;
+  }
+}
+
+.el-button {
+  color: white !important;
+  background: var(--color-2) !important;
+  transition: all 0.5s !important;
+  border: none !important;
+
+  &:hover {
+    background: var(--color-3) !important;
+    border: none !important;
+  }
+  &:active {
+    background: var(--color-4) !important;
+  }
+}
+
+.el-popper {
+  max-width: 200px;
+}
+
+.el-popper.is-dark {
+  background: var(--color-2) !important;
+  .el-popper__arrow::before {
+    background: var(--color-2) !important;
+  }
+}
+
+.el-dropdown {
+  color: var(--color-2) !important;
+  .el-tooltip__trigger {
+    cursor: pointer !important; 
+  }
+}
+
+.el-switch {
+  --el-switch-off-color: var(--color-2) !important;
+  --el-switch-on-color: var(--color-2) !important;
+  justify-content: center;
+
+  &__label {
+    color: var(--color-2) !important;
+  }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  box-shadow: 0 0 0 1000px rgb(256 256 256 / 10%) inset !important;
+  caret-color: var(--color-text);
+  -webkit-text-fill-color: var(--color-text);
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+h2 {
+  line-height: 30px;
+}
+
+.el-dropdown {
+  &__popper, &-menu__item {
+    color: var(--color-2) !important;
+    transition: background-color 0.5s;
+  }
+  
+  &-menu__item:not(.is-disabled):focus {
+    color: var(--color-2) !important;
+    background-color: var(--color-5) !important;
+  }
+
+}
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.4s;
+}
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+  filter: blur(1rem);
+}
