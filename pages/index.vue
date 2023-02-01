@@ -9,6 +9,7 @@
           @edit="redirectToListUpdate(list._id)"
         />
         <el-dialog
+          align-center
           v-model="deleteDialogVisible"
           :lock-scroll="false"
           title="Warning"
@@ -27,7 +28,7 @@
         </el-dialog>
       </div>
     </div>
-    <div v-else> You don't have any lists </div>
+    <div v-else>You don't have any lists</div>
 
     <ElButton @click="redirectToListCreation" class="lists__create-button">
       Create
@@ -60,10 +61,10 @@ export default {
     };
 
     const isListsExists = computed(() => {
-      if (lists.value === null) return true
-      if (Object.keys(lists.value)?.length === 0) return false
-      return true
-    })
+      if (lists.value === null) return true;
+      if (Object.keys(lists.value)?.length === 0) return false;
+      return true;
+    });
 
     getMyLists();
 
@@ -74,7 +75,11 @@ export default {
     };
 
     const redirectToListUpdate = (_id) => {
-      router.push(`lists/${_id}`);
+      router.push({
+        name: "lists-id",
+        params: { id: _id },
+        query: { edit: true },
+      });
     };
 
     const deleteList = (_id) => {
@@ -93,7 +98,7 @@ export default {
       redirectToListCreation,
       redirectToListUpdate,
       deleteList,
-      isListsExists
+      isListsExists,
     };
   },
 };

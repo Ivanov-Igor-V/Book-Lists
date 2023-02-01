@@ -119,7 +119,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .book-list {
   padding: 20px;
   text-align: center;

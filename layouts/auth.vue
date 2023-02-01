@@ -35,13 +35,15 @@ export default {
   &__main {
     display: flex;
     height: 100%;
+    width: 100%;
   }
 
   &__content {
     background: white;
-    width: 100%;
+    width: 40%;
+    height: 40%;
     overflow: auto;
-    margin: 20%;
+    margin: auto;
     border-radius: 10px;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
     color: var(--color-2);
@@ -50,19 +52,6 @@ export default {
     display: flex;
     justify-content: center;
     position: relative;
-  }
-
-  &__header {
-    background-color: transparent;
-    color: var(--color-2);
-    font-weight: 600;
-    font-size: 20px;
-    text-align: center;
-    line-height: 60px;
-    box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
 }
 

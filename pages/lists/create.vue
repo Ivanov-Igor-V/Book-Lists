@@ -3,12 +3,7 @@
     <div class="book-list__form">
       <div class="book-list__form-field">
         <el-input autofocus placeholder="query" v-model="query" />
-        <el-tooltip
-          trigger="click"
-          effect="dark"
-          placement="right"
-          :show-after="500"
-        >
+        <el-tooltip effect="dark" placement="right" :show-after="500">
           <template #content>
             Here you can enter a search query. This can be, for example, the
             title of the work or the name of the author.
@@ -27,7 +22,7 @@
       @listNameUpdated="listName = $event"
     />
     <div class="book-list__footer">
-      <ElButton @click="addList" type="success">Save</ElButton>
+      <ElButton @click="addList" >Save</ElButton>
     </div>
   </div>
 </template>
@@ -89,14 +84,13 @@ export default {
       list,
       loading,
       listName,
-
       addList,
     };
   },
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .book-list {
   padding: 20px;
   text-align: center;

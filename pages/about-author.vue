@@ -4,21 +4,17 @@
     <h4>Contact me:</h4>
     <div class="list">
       <div class="list__item">
-        <p>telegram</p>
-        <ElLink href="https://t.me/garry_c_john" target="_blank"
-          >garry_c_john</ElLink
-        >
+        <div>telegram</div>
+        <a href="https://t.me/garry_c_john" target="_blank">garry_c_john</a>
       </div>
       <div class="list__item">
-        <p>whatsApp</p>
-        <ElLink href="https://wa.me/+79101528290" target="_blank"
-          >Igor Ivanov</ElLink
-        >
+        <div>whatsApp</div>
+        <a href="https://wa.me/+79101528290" target="_blank">Igor Ivanov</a>
       </div>
       <div class="list__item">
-        <p>email</p>
-        <ElLink href="mailto:ivanov2934@gmail.com" target="_blank"
-          >ivanov2934@gmail.com</ElLink
+        <div>email</div>
+        <a href="mailto:ivanov2934@gmail.com" target="_blank"
+          >ivanov2934@gmail.com</a
         >
       </div>
     </div>
@@ -39,11 +35,16 @@ export default {
 .list {
   display: flex;
   flex-direction: column;
+  border: 2px dotted var(--color-2);
+  border-radius: 10px;
+  margin: auto;
+  max-width: 300px;
+  display: grid;
 
   &__item {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 5px;
 
     p {
       padding-right: 10px;

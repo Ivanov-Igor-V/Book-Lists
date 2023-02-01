@@ -2,16 +2,21 @@ body,
 html {
   padding: 0;
   margin: 0;
-  overflow-y: hidden;
+  overflow: hidden;
   font-size: 14px;
   line-height: 17px;
-  transition: all 0.3s;
 }
 
 a {
   cursor: pointer;
   color: black;
   text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+  &::visited {
+    color: black;
+  }
 }
 
 * {
@@ -71,21 +76,6 @@ a {
   }
 }
 
-.el-button {
-  color: white !important;
-  background: var(--color-2) !important;
-  transition: all 0.5s !important;
-  border: none !important;
-
-  &:hover {
-    background: var(--color-3) !important;
-    border: none !important;
-  }
-  &:active {
-    background: var(--color-4) !important;
-  }
-}
-
 .el-popper {
   max-width: 200px;
 }
@@ -98,7 +88,6 @@ a {
 }
 
 .el-dropdown {
-  color: var(--color-2) !important;
   .el-tooltip__trigger {
     cursor: pointer !important; 
   }
@@ -148,3 +137,21 @@ h2 {
   opacity: 0;
   filter: blur(1rem);
 }
+
+.el-dialog__close, .el-link:hover {
+  color: var(--color-2) !important;
+}
+
+ * {
+  --el-text-color-regular: var(--color-2);
+  --el-dropdown-menuItem-hover: var(--color-2);
+  --el-color-primary: var(--color-2);
+  --el-menu-text-color: var(--color-2);
+  --el-color-primary-dark-2: var(--color-3);
+  --el-color-primary-light-3: var(--color-4);
+  --el-button-bg-color: var(--color-2) !important;
+  --el-button-hover-bg-color: var(--color-3) !important;
+  --el-button-text-color: white !important;
+  --el-button-hover-text-color: white !important;
+  --el-button-hover-border-color: var(--color-3);
+ } 

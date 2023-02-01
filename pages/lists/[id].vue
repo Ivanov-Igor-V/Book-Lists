@@ -1,22 +1,31 @@
 <template>
   <div class="book-list">
-    <div class="book-list__form">
-      <el-input
-        placeholder="Please input"
-        class="book-list__input"
-        v-model="query"
+    <div v-if="isEditMode">
+      <div class="book-list__form">
+        <el-input
+          placeholder="Please input"
+          class="book-list__input"
+          v-model="query"
+        />
+        <ElButton @click="fetchBooks" :loading="loading">Get books</ElButton>
+      </div>
+      <Table
+        @listUpdated="list = $event"
+        @listNameUpdated="listName = $event"
+        :books="catalog"
+        :list="list"
+        :listName="listName"
       />
-      <ElButton @click="fetchBooks" :loading="loading">Get books</ElButton>
+      <div class="book-list__footer">
+        <ElButton @click="updateList" >Save</ElButton>
+        <ElButton @click="$router.go(-1)" >Cancel</ElButton>
+      </div>
     </div>
-    <Table
-      @listUpdated="list = $event"
-      @listNameUpdated="listName = $event"
-      :books="catalog"
-      :list="list"
-      :listName="listName"
-    />
-    <div class="book-list__footer">
-      <ElButton @click="updateList" type="success">Save</ElButton>
+    <div v-else>
+      <h2>{{ listName }}</h2>
+      <div class="books-info" v-for="(book, index) in list" :key="index">
+        <BookInfo class="books-info__item" :info="book" />
+      </div>
     </div>
   </div>
 </template>
@@ -24,17 +33,21 @@
 <script>
 import { ElMessage, ElInput, ElButton } from "element-plus";
 import Table from "@/components/Table.vue";
+import BookInfo from "@/components/BookInfo.vue";
 
 export default {
   components: {
     ElInput,
     ElButton,
     Table,
+    BookInfo,
   },
   setup() {
     const query = ref("");
     const route = useRoute();
     const router = useRouter();
+
+    const isEditMode = computed(() => !!route.query.edit);
 
     const catalog = ref([]);
     const list = ref([]);
@@ -90,6 +103,8 @@ export default {
       listName,
       loading,
 
+      isEditMode,
+
       fetchBooks,
       updateList,
       deleteItem,
@@ -99,7 +114,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .book-list {
   padding: 20px;
   text-align: center;
@@ -122,6 +137,12 @@ export default {
     grid-template-columns: 1fr 1fr;
     gap: 10%;
     margin-bottom: 20px;
+  }
+}
+
+.books-info {
+  &__item {
+    margin-bottom: 10px;
   }
 }
 </style>

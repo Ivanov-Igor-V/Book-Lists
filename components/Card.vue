@@ -3,25 +3,31 @@
     <div class="card__title">{{ info.title || info.name }}</div>
 
     <div class="card__icons">
+      <Document
+        :height="16"
+        v-if="type === 'editable-item'"
+        color="white"
+        @click="redirectToListInfo(info.id || info._id)"
+      />
       <Edit
         :height="16"
         v-if="type === 'editable-item'"
         color="white"
-        @click="$emit('edit', info.id)"
+        @click="$emit('edit', info.id || info._id)"
       />
       <Delete
         :height="16"
         v-if="type === 'deletable-item' || type === 'editable-item'"
         color="white"
-        @click="$emit('delete', info.id)"
+        @click="$emit('delete', info.id || info._id)"
       />
     </div>
   </div>
 </template>
 
 <script>
-import { Delete, Edit } from "@element-plus/icons-vue";
-import { ElTooltip } from "element-plus";
+import { Delete, Edit, Document } from "@element-plus/icons-vue";
+import { ElTooltip, ElDialog, ElButton } from "element-plus";
 
 export default {
   props: {
@@ -38,6 +44,17 @@ export default {
     Delete,
     ElTooltip,
     Edit,
+    Document,
+    ElDialog,
+    ElButton,
+  },
+  setup() {
+    const router = useRouter();
+    const redirectToListInfo = (_id) => {
+      router.push(`lists/${_id}`);
+    };
+
+    return { redirectToListInfo };
   },
 };
 </script>
