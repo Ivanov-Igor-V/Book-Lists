@@ -7,6 +7,11 @@ html {
   line-height: 17px;
 }
 
+h3,h4,h5,h6 {
+  margin: 0;
+  padding: 0;
+}
+
 a {
   cursor: pointer;
   color: black;
@@ -76,10 +81,6 @@ a {
   }
 }
 
-.el-popper {
-  max-width: 200px;
-}
-
 .el-popper.is-dark {
   background: var(--color-2) !important;
   .el-popper__arrow::before {
@@ -89,7 +90,7 @@ a {
 
 .el-dropdown {
   .el-tooltip__trigger {
-    cursor: pointer !important; 
+    cursor: pointer !important;
   }
 }
 
@@ -117,16 +118,16 @@ h2 {
 }
 
 .el-dropdown {
-  &__popper, &-menu__item {
+  &__popper,
+  &-menu__item {
     color: var(--color-2) !important;
     transition: background-color 0.5s;
   }
-  
+
   &-menu__item:not(.is-disabled):focus {
     color: var(--color-2) !important;
     background-color: var(--color-5) !important;
   }
-
 }
 .page-enter-active,
 .page-leave-active {
@@ -138,11 +139,12 @@ h2 {
   filter: blur(1rem);
 }
 
-.el-dialog__close, .el-link:hover {
+.el-dialog__close,
+.el-link:hover {
   color: var(--color-2) !important;
 }
 
- * {
+* {
   --el-text-color-regular: var(--color-2);
   --el-dropdown-menuItem-hover: var(--color-2);
   --el-color-primary: var(--color-2);
@@ -154,4 +156,34 @@ h2 {
   --el-button-text-color: white !important;
   --el-button-hover-text-color: white !important;
   --el-button-hover-border-color: var(--color-3);
- } 
+}
+
+.el-color-picker {
+  width: 100%;
+  border: 1px solid var(--color-2);
+  border-radius: 5px;
+
+  * {
+    border-radius: 5px;
+    border: none !important;
+  }
+
+  &__trigger {
+    width: 100% !important;
+    padding: 0 !important;
+    border: none !important;
+  }
+}
+
+.el-message,
+.el-message--info,
+.el-message__content,
+.el-message-icon--info {
+  background-color: var(--color-2) !important;
+  color: white !important;
+}
+.el-message--error,
+.el-message-icon--error {
+  background-color: var(--color-2) !important;
+  color: white !important;
+}

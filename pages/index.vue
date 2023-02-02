@@ -38,7 +38,7 @@
 
 <script>
 import Card from "@/components/Card.vue";
-import { ElMessage, ElButton, ElDialog } from "element-plus";
+import {  ElButton, ElDialog } from "element-plus";
 
 export default {
   components: {

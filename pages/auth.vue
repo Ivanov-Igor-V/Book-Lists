@@ -8,20 +8,22 @@
       inactive-text="SignUp"
     />
     <transition-group name="list">
-      <el-form-item>
-        <el-input placeholder="email" v-model="email"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-input
-          type="password"
-          placeholder="password"
-          v-model="password"
-          show-password
-        ></el-input>
-      </el-form-item>
-      <el-form-item v-if="!isLogin">
-        <el-input placeholder="name" v-model="name"></el-input>
-      </el-form-item>
+      <ElForm>
+        <el-form-item>
+          <el-input placeholder="email" v-model="email"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-input
+            type="password"
+            placeholder="password"
+            v-model="password"
+            show-password
+          ></el-input>
+        </el-form-item>
+        <el-form-item v-if="!isLogin">
+          <el-input placeholder="name" v-model="name"></el-input>
+        </el-form-item>
+      </ElForm>
     </transition-group>
 
     <el-button @click="sendForm" class="auth__confirm">
@@ -31,7 +33,14 @@
 </template>
 
 <script>
-import { ElInput, ElButton, ElFormItem, ElSwitch } from "element-plus";
+import {
+  ElInput,
+  ElMessage,
+  ElButton,
+  ElFormItem,
+  ElSwitch,
+  ElForm,
+} from "element-plus";
 
 definePageMeta({
   layout: "auth",
@@ -43,6 +52,7 @@ export default {
     ElButton,
     ElFormItem,
     ElSwitch,
+    ElForm,
   },
   setup() {
     const router = useRouter();
@@ -51,37 +61,33 @@ export default {
     const name = ref(null);
     const password = ref(null);
     const isLogin = ref(true);
+    const errors = ref(null);
 
     const buttonText = computed(() => (isLogin.value ? "SignUp" : "SignIn"));
 
     const config = useRuntimeConfig();
 
-    const sendForm = async () => {
-      if (isLogin.value) {
-        const { data, error } = await useFetch(
-          `${config.public.baseURL}/login`,
-          {
-            method: "POST",
-            body: { email: email.value, password: password.value },
-          }
-        );
-
-        if (data.value.token) {
-          localStorage.setItem("token", data.value.token);
-          localStorage.setItem("id", data.value.id);
-          localStorage.setItem("name", data.value.name);
-          router.push("/");
-        }
-
+    const loginHandler = async () => {
+      const { data, error } = await useFetch(`${config.public.baseURL}/login`, {
+        method: "POST",
+        body: { email: email.value, password: password.value },
+      });
+      if (error.value) {
+        ElMessage(error.value.data.errors[0])
         return;
       }
+      if (data.value.token) {
+        localStorage.setItem("token", data.value.token);
+        localStorage.setItem("id", data.value.id);
+        localStorage.setItem("name", data.value.name);
+        router.push("/");
+      }
+    };
 
+    const registrationHandler = async () => {
       const { data, error } = await useFetch(
         `${config.public.baseURL}/registration`,
         {
-          headers: {
-            "Content-Type": "application/json",
-          },
           method: "POST",
           body: {
             name: name.value,
@@ -91,18 +97,32 @@ export default {
         }
       );
 
+      if (error.value) {
+        ElMessage(error.value.data.errors[0])
+        return;
+      }
+
       if (data.value.token) {
         localStorage.setItem("token", data.value.token);
-        // TODO put id intp store
+        // TODO put id into store
         localStorage.setItem("id", data.value.id);
         router.push("/");
       }
+    };
+
+    const sendForm = () => {
+      if (isLogin.value) {
+        return loginHandler();
+      }
+
+      registrationHandler();
     };
 
     return {
       name,
       email,
       password,
+      errors,
       sendForm,
       isLogin,
       buttonText,

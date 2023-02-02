@@ -14,23 +14,23 @@
       width="80%"
     >
       <div class="book-details">
-        <div>
+        <div class="book-details__text">
           <h2>{{ info.title }}</h2>
-          <div :style="{ display: 'inline-flex', alignItems: 'center' }">
+          <div class="book-details__item">
             <h4>Author:</h4>
             <span> {{ info.authors[0].name }} </span>
           </div>
-          <div>
+          <div class="book-details__item" v-if="info.bookshelves.length > 0">
             <h4>Genres:</h4>
             <p v-for="(genre, index) in info.bookshelves" :key="index">
               {{ genre }}
             </p>
           </div>
-          <div>
+          <div class="book-details__item">
             <h4>Link for reading:</h4>
-            <ElLink :href="linkToReElLinkd" target="_blank">
+            <a :href="linkToRead" target="_blank">
               {{ info.title }}
-            </ElLink>
+            </a>
           </div>
         </div>
 
@@ -50,7 +50,6 @@
 <script>
 import { InfoFilled } from "@element-plus/icons-vue";
 import { ElTooltip, ElDialog, ElButton, ElLink } from "element-plus";
-import { onClickOutside } from "@vueuse/core";
 
 export default {
   name: "BookInfo",
@@ -62,14 +61,12 @@ export default {
     ElTooltip,
     ElDialog,
     ElButton,
-    ElLink
+    ElLink,
   },
   setup(_props) {
     const isInfoDialogOpen = ref(false);
 
-    const linkToRead = computed(() => _props.info.formats['text/html']);
-
-    // onClickOutside(dropdown, () => (isInfoDialogOpen.value = false));
+    const linkToRead = computed(() => _props.info.formats["text/html"]);
 
     return { isInfoDialogOpen, linkToRead };
   },
@@ -82,6 +79,10 @@ export default {
   border-radius: 5px;
   display: flex;
   flex-direction: column;
+
+  h2 {
+    word-break: keep-all;
+  }
 
   &__toggler {
     background: var(--color-2);
@@ -116,6 +117,18 @@ export default {
 .book-details {
   display: flex;
   justify-content: space-around;
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__item {
+    display: inline-flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: flex-start;
+  }
 
   img {
     margin-left: 20px;

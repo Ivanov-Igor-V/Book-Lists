@@ -31,6 +31,7 @@
         :key="book.id"
       >
         <Card
+          :draggable="false"
           :info="book"
           v-if="list1"
           type="deletable-item"
@@ -94,6 +95,7 @@ export default {
 
     const onDrop = (_e) => {
       const itemIndex = Number(_e.dataTransfer.getData("itemID"));
+      if (!itemIndex) return;
       if (list2.value.some((el) => el.id === itemIndex)) {
         return ElMessage("This book has already been added");
       }

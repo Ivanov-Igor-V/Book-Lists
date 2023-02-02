@@ -3,7 +3,12 @@
     <div class="book-list__form">
       <div class="book-list__form-field">
         <el-input autofocus placeholder="query" v-model="query" />
-        <el-tooltip effect="dark" placement="right" :show-after="500">
+        <el-tooltip
+          :popper-style="{ maxWidth: '200px' }"
+          effect="dark"
+          placement="right"
+          :show-after="500"
+        >
           <template #content>
             Here you can enter a search query. This can be, for example, the
             title of the work or the name of the author.
@@ -11,7 +16,17 @@
           <el-icon :size="20"><InfoFilled /></el-icon>
         </el-tooltip>
       </div>
-
+      <el-tooltip
+        :popper-style="{ maxWidth: '200px' }"
+        effect="dark"
+        placement="right"
+        :show-after="500"
+        content="Pick a color"
+      >
+        <div class="color-picker">
+          <ElColorPicker v-model="color" :label="'lol'" />
+        </div>
+      </el-tooltip>
       <ElButton @click="fetchBooks" :loading="loading">Get books</ElButton>
     </div>
     <Table
@@ -22,13 +37,20 @@
       @listNameUpdated="listName = $event"
     />
     <div class="book-list__footer">
-      <ElButton @click="addList" >Save</ElButton>
+      <ElButton @click="addList">Save</ElButton>
     </div>
   </div>
 </template>
 
 <script>
-import { ElMessage, ElInput, ElButton, ElIcon, ElTooltip } from "element-plus";
+import {
+  ElMessage,
+  ElInput,
+  ElButton,
+  ElIcon,
+  ElTooltip,
+  ElColorPicker,
+} from "element-plus";
 import { InfoFilled } from "@element-plus/icons-vue";
 import Table from "@/components/Table.vue";
 export default {
@@ -39,6 +61,7 @@ export default {
     InfoFilled,
     ElIcon,
     ElTooltip,
+    ElColorPicker,
   },
   setup() {
     const query = ref("");
@@ -48,6 +71,7 @@ export default {
     const catalog = ref([]);
     const list = ref([]);
     const listName = ref("");
+    const color = ref("#800080");
 
     const loading = ref(false);
 
@@ -65,22 +89,28 @@ export default {
 
     const config = useRuntimeConfig();
 
-    const addList = () => {
-      useFetch(`${config.public.baseURL}/lists`, {
+    const addList = async () => {
+      const { data, error } = await useFetch(`${config.public.baseURL}/lists`, {
         method: "POST",
-        body: { name: listName.value, list: list.value, user: localStorage.id },
-        onResponse({ response }) {
-          listName.value = response._data?.name;
-          list.value = response._data?.list;
-          router.push("/");
+        body: {
+          name: listName.value,
+          list: list.value,
+          color: color.value,
+          user: localStorage.id,
         },
       });
+      if (error.value) {
+        ElMessage(error.value.data.errors[0]);
+        return;
+      }
+      router.push("/");
     };
 
     return {
       query,
       fetchBooks,
       catalog,
+      color,
       list,
       loading,
       listName,
@@ -113,6 +143,7 @@ export default {
     gap: 5px;
     align-items: center;
     margin-bottom: 10px;
+    gap: 5px;
   }
 
   &__main {
@@ -121,5 +152,10 @@ export default {
     gap: 10%;
     margin-bottom: 20px;
   }
+}
+
+.color-picker {
+  margin-bottom: 10px;
+  width: 100%;
 }
 </style>
