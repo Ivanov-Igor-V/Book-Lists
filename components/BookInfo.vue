@@ -42,7 +42,7 @@
           </div>
         </div>
 
-        <img :src="info.formats['image/jpeg']" :alt="info.title">
+        <img :src="info.formats['image/jpeg']" :alt="info.title" />
       </div>
       <template #footer>
         <span class="dialog-footer">

@@ -69,6 +69,7 @@
 <script>
 import { Delete, Edit, Document } from "@element-plus/icons-vue";
 import { ElTooltip, ElIcon } from "element-plus";
+import { useContrastColor } from "@/composables/useContrastColor.js";
 
 export default {
   name: "TheCard",
@@ -97,7 +98,7 @@ export default {
 
     const textColor = useContrastColor(_props.info.color);
 
-    return { redirectToListInfo, getContrastColor, textColor };
+    return { redirectToListInfo, textColor };
   },
 };
 </script>
