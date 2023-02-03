@@ -13,7 +13,7 @@
           v-model="deleteDialogVisible"
           :lock-scroll="false"
           title="Warning"
-          width="30%"
+          width="50%"
           center
         >
           <span> Do you want to delete this list? </span>

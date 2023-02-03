@@ -8,6 +8,9 @@
         </el-icon>
         <template #dropdown>
           <el-dropdown-menu>
+            <el-dropdown-item ref="dropdown" @click="$router.push('/')">
+              Main</el-dropdown-item
+            >
             <el-dropdown-item
               ref="dropdown"
               @click="$router.push('/about-app')"

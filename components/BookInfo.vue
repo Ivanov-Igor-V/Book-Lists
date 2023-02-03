@@ -1,10 +1,14 @@
 <template>
-  <div class="book-info">
-    <div class="book-info__toggler" @click="isInfoDialogOpen = true">
-      <div class="book-info__title">{{ info.title }}</div>
-      <div class="book-info__icons">
-        <InfoFilled :height="16" color="white" />
-      </div>
+  <div class="book-info" :style="{ background: listColor }">
+    <div
+      class="book-info__title"
+      @click="isInfoDialogOpen = true"
+      :style="{ background: listColor, color: textColor }"
+    >
+      {{ info.title }}
+    </div>
+    <div class="book-info__icons">
+      <InfoFilled :height="16" :color="textColor" @click="isInfoDialogOpen = true" />
     </div>
     <el-dialog
       :show-close="false"
@@ -50,11 +54,16 @@
 <script>
 import { InfoFilled } from "@element-plus/icons-vue";
 import { ElTooltip, ElDialog, ElButton, ElLink } from "element-plus";
+import { useContrastColor } from "@/composables/useContrastColor.js";
 
 export default {
   name: "BookInfo",
   props: {
     info: Object,
+    listColor: {
+      type: String,
+      default: "#800080",
+    },
   },
   components: {
     InfoFilled,
@@ -66,34 +75,28 @@ export default {
   setup(_props) {
     const isInfoDialogOpen = ref(false);
 
+    const textColor = useContrastColor(_props.listColor);
+
     const linkToRead = computed(() => _props.info.formats["text/html"]);
 
-    return { isInfoDialogOpen, linkToRead };
+    return { isInfoDialogOpen, linkToRead, textColor };
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .book-info {
-  color: white;
-  border-radius: 5px;
+  background: var(--color-2);
+  padding: 5px 10px;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  position: relative;
+  border-radius: 10px;
 
   h2 {
     word-break: keep-all;
-  }
-
-  &__toggler {
-    background: var(--color-2);
-    padding: 5px 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 40px;
-    position: relative;
-    border-radius: 10px;
-    cursor: pointer;
   }
 
   &__title {
@@ -102,6 +105,7 @@ export default {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    cursor: pointer;
   }
 
   &__icons {

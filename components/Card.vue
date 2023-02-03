@@ -101,7 +101,7 @@ export default {
       const g = parseInt(hexcolor.substr(2, 2), 16);
       const b = parseInt(hexcolor.substr(4, 2), 16);
       const yiq = (r * 299 + g * 587 + b * 114) / 1000;
-      if (yiq === NaN) return "green";
+      if (yiq === NaN) return "purple";
       return yiq >= 128 ? "black" : "white";
     };
 

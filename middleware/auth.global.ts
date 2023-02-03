@@ -7,8 +7,6 @@ export default defineNuxtRouteMiddleware((to, from) => {
   if (!token && to.path !== "/auth") return navigateTo("/auth");
 
   if (token && to.path === "/auth") {
-    console.log(from);
-
     return navigateTo('/');
   }
 });

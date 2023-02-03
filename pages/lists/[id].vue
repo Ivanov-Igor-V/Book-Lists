@@ -45,7 +45,7 @@
     <div v-else>
       <h2>{{ listName }}</h2>
       <div class="books-info" v-for="(book, index) in list" :key="index">
-        <BookInfo class="books-info__item" :info="book" />
+        <BookInfo class="books-info__item" :info="book" :listColor="color" />
       </div>
     </div>
   </div>
@@ -78,6 +78,7 @@ export default {
     ElTooltip,
     InfoFilled,
     ElIcon,
+    ElMessage,
   },
   setup() {
     const query = ref("");
@@ -108,7 +109,8 @@ export default {
     const config = useRuntimeConfig();
 
     const getListDetails = () => {
-      useFetch(`${config.public.baseURL}/lists/:${route.params.id}`, {
+      console.log("fetch", route.params.id);
+      useFetch(`${config.public.baseURL}/lists/${route.params.id}`, {
         method: "GET",
         onResponse({ response }) {
           listName.value = response._data?.name;
@@ -121,8 +123,8 @@ export default {
     getListDetails();
 
     const updateList = async () => {
-      const { data, error } = useFetch(
-        `${config.public.baseURL}/lists/:${route.params.id}`,
+      const { data, error } = await useFetch(
+        `${config.public.baseURL}/lists/${route.params.id}`,
         {
           method: "PUT",
           body: {
