@@ -2,7 +2,7 @@
   <div class="book-list">
     <div class="book-list__form">
       <div class="book-list__form-field">
-        <el-input autofocus placeholder="query" v-model="query" />
+        <el-input v-model="query" autofocus placeholder="query" />
         <el-tooltip
           :popper-style="{ maxWidth: '200px' }"
           effect="dark"
@@ -13,7 +13,9 @@
             Here you can enter a search query. This can be, for example, the
             title of the work or the name of the author.
           </template>
-          <el-icon :size="20"><InfoFilled /></el-icon>
+          <el-icon :size="20">
+            <InfoFilled />
+          </el-icon>
         </el-tooltip>
       </div>
       <el-tooltip
@@ -27,17 +29,21 @@
           <ElColorPicker v-model="color" :label="'lol'" />
         </div>
       </el-tooltip>
-      <ElButton @click="fetchBooks" :loading="loading">Get books</ElButton>
+      <ElButton :loading="loading" @click="fetchBooks">
+        Get books
+      </ElButton>
     </div>
-    <Table
-      @listUpdated="list = $event"
+    <TheTable
       :books="catalog"
       :list="list"
-      :listName="listName"
+      :list-name="listName"
+      @listUpdated="list = $event"
       @listNameUpdated="listName = $event"
     />
     <div class="book-list__footer">
-      <ElButton @click="addList">Save</ElButton>
+      <ElButton @click="addList">
+        Save
+      </ElButton>
     </div>
   </div>
 </template>
@@ -52,12 +58,12 @@ import {
   ElColorPicker,
 } from "element-plus";
 import { InfoFilled } from "@element-plus/icons-vue";
-import Table from "@/components/Table.vue";
+import TheTable from "@/components/TheTable.vue";
 export default {
   components: {
     ElInput,
     ElButton,
-    Table,
+    TheTable,
     InfoFilled,
     ElIcon,
     ElTooltip,
@@ -90,7 +96,7 @@ export default {
     const config = useRuntimeConfig();
 
     const addList = async () => {
-      const { data, error } = await useFetch(`${config.public.baseURL}/lists`, {
+      const { error } = await useFetch(`${config.public.baseURL}/lists`, {
         method: "POST",
         body: {
           name: listName.value,

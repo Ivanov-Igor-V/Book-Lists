@@ -9,12 +9,9 @@
 </template>
 
 <script>
-import { ElPageHeader, ElDropdown, ElDropdownMenu, ElDropdownItem, ElButton, ElIcon } from "element-plus";
-import { Expand } from "@element-plus/icons-vue";
 import { breakpointsTailwind, useBreakpoints } from "@vueuse/core";
 export default {
   name: "DefaultLayout",
-  components: { ElPageHeader, ElIcon, Expand, ElDropdown, ElDropdownMenu, ElDropdownItem },
   setup() {
     const breakpoints = useBreakpoints(breakpointsTailwind);
 

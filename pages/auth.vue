@@ -1,8 +1,8 @@
 <template>
   <div class="auth">
     <el-switch
-      class="auth__switch"
       v-model="isLogin"
+      class="auth__switch"
       size="large"
       active-text="LogIn"
       inactive-text="SignUp"
@@ -10,25 +10,25 @@
     <transition-group name="list">
       <ElForm>
         <el-form-item>
-          <el-input placeholder="email" v-model="email"></el-input>
+          <el-input v-model="email" placeholder="email" />
         </el-form-item>
         <el-form-item>
           <el-input
+            v-model="password"
             type="password"
             placeholder="password"
-            v-model="password"
             show-password
-          ></el-input>
+          />
         </el-form-item>
         <el-form-item v-if="!isLogin">
-          <el-input placeholder="name" v-model="name"></el-input>
+          <el-input v-model="name" placeholder="name" />
         </el-form-item>
       </ElForm>
     </transition-group>
 
-    <el-button @click="sendForm" class="auth__confirm">
-      {{ buttonText }}</el-button
-    >
+    <el-button class="auth__confirm" @click="sendForm">
+      {{ buttonText }}
+    </el-button>
   </div>
 </template>
 

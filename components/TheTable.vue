@@ -2,13 +2,13 @@
   <div class="book-list__main">
     <div class="books">
       <div
-        class="books__item"
         v-for="book in list1"
         :key="book.id"
+        class="books__item"
         :draggable="true"
         @dragstart="onDragStart($event, book)"
       >
-        <Card :info="book" @delete="deleteItem" />
+        <TheCard :info="book" @delete="deleteItem" />
       </div>
     </div>
 
@@ -19,21 +19,21 @@
       @dragover.prevent
     >
       <el-input
+        v-model="title"
         placeholder="name of list"
         class="book-list__input"
-        v-model="title"
         @change="$emit('listNameUpdated', title)"
       />
       <div
-        class="books__item"
         v-for="book in list2"
-        :draggable="false"
         :key="book.id"
+        class="books__item"
+        :draggable="false"
       >
-        <Card
+        <TheCard
+          v-if="list1"
           :draggable="false"
           :info="book"
-          v-if="list1"
           type="deletable-item"
           @delete="deleteItem"
         />
@@ -43,12 +43,13 @@
 </template>
 
 <script>
-import Card from "@/components/Card.vue";
+import TheCard from "@/components/TheCard.vue";
 import { ElMessage, ElInput } from "element-plus";
 
 export default {
+  name: "TheTable",
   components: {
-    Card,
+    TheCard,
     ElInput,
   },
   props: {

@@ -13,23 +13,14 @@
       </div>
       <div class="list__item">
         <div>email</div>
-        <a href="mailto:ivanov2934@gmail.com" target="_blank"
-          >ivanov2934@gmail.com</a
-        >
+        <a
+          href="mailto:ivanov2934@gmail.com"
+          target="_blank"
+        >ivanov2934@gmail.com</a>
       </div>
     </div>
   </div>
 </template>
-
-<script>
-import { ElLink } from "element-plus";
-
-export default {
-  components: {
-    ElLink,
-  },
-};
-</script>
 
 <style lang="scss" scoped>
 .list {

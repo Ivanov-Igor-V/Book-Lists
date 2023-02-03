@@ -1,9 +1,14 @@
 <template>
   <div
     class="card"
-    :style="{ background: info?.color, color: info.color ? textColor : '' }"
+    :style="{
+      background: info?.color,
+      color: info.color ? textColor : '',
+    }"
   >
-    <div class="card__title">{{ info.title || info.name }}</div>
+    <div class="card__title">
+      {{ info.title || info.name }}
+    </div>
 
     <div class="card__icons">
       <el-tooltip
@@ -50,8 +55,8 @@
         <template #content> Delete list </template>
         <el-icon>
           <Delete
-            :height="16"
             v-if="type === 'deletable-item' || type === 'editable-item'"
+            :height="16"
             :color="textColor"
             @click="$emit('delete', info.id || info._id)"
           />
@@ -63,10 +68,17 @@
 
 <script>
 import { Delete, Edit, Document } from "@element-plus/icons-vue";
-import { ElTooltip, ElDialog, ElButton, ElIcon } from "element-plus";
+import { ElTooltip, ElIcon } from "element-plus";
 
 export default {
-  name: "Card",
+  name: "TheCard",
+  components: {
+    Delete,
+    ElTooltip,
+    Edit,
+    Document,
+    ElIcon,
+  },
   props: {
     type: {
       type: String,
@@ -77,35 +89,13 @@ export default {
     },
     info: Object,
   },
-  components: {
-    Delete,
-    ElTooltip,
-    Edit,
-    Document,
-    ElDialog,
-    ElButton,
-    ElIcon,
-  },
   setup(_props) {
     const router = useRouter();
     const redirectToListInfo = (_id) => {
       router.push(`lists/${_id}`);
     };
 
-    const getContrastColor = (hexcolor) => {
-      if (!hexcolor) return;
-      if (hexcolor[0] === "#") {
-        hexcolor = hexcolor.substring(1);
-      }
-      const r = parseInt(hexcolor.substr(0, 2), 16);
-      const g = parseInt(hexcolor.substr(2, 2), 16);
-      const b = parseInt(hexcolor.substr(4, 2), 16);
-      const yiq = (r * 299 + g * 587 + b * 114) / 1000;
-      if (yiq === NaN) return "purple";
-      return yiq >= 128 ? "black" : "white";
-    };
-
-    const textColor = computed(() => getContrastColor(_props.info.color));
+    const textColor = useContrastColor(_props.info.color);
 
     return { redirectToListInfo, getContrastColor, textColor };
   },

@@ -9,18 +9,18 @@
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item ref="dropdown" @click="$router.push('/')">
-              Main</el-dropdown-item
-            >
+              Main
+            </el-dropdown-item>
             <el-dropdown-item
               ref="dropdown"
               @click="$router.push('/about-app')"
             >
-              About app</el-dropdown-item
-            >
+              About app
+            </el-dropdown-item>
             <el-dropdown-item @click="$router.push('/about-author')">
               About author
             </el-dropdown-item>
-            <el-dropdown-item @click="LogOut" divided>
+            <el-dropdown-item divided @click="LogOut">
               Log Out
             </el-dropdown-item>
           </el-dropdown-menu>
@@ -40,7 +40,6 @@
 
 <script>
 import {
-  ElPageHeader,
   ElDropdown,
   ElDropdownMenu,
   ElDropdownItem,
@@ -51,7 +50,6 @@ import { breakpointsTailwind, useBreakpoints } from "@vueuse/core";
 export default {
   name: "DefaultLayout",
   components: {
-    ElPageHeader,
     ElIcon,
     Expand,
     ElDropdown,

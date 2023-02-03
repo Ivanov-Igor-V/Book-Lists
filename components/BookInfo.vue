@@ -2,17 +2,21 @@
   <div class="book-info" :style="{ background: listColor }">
     <div
       class="book-info__title"
-      @click="isInfoDialogOpen = true"
       :style="{ background: listColor, color: textColor }"
+      @click="isInfoDialogOpen = true"
     >
       {{ info.title }}
     </div>
     <div class="book-info__icons">
-      <InfoFilled :height="16" :color="textColor" @click="isInfoDialogOpen = true" />
+      <InfoFilled
+        :height="16"
+        :color="textColor"
+        @click="isInfoDialogOpen = true"
+      />
     </div>
     <el-dialog
-      :show-close="false"
       v-model="isInfoDialogOpen"
+      :show-close="false"
       :lock-scroll="false"
       center
       width="80%"
@@ -24,7 +28,7 @@
             <h4>Author:</h4>
             <span> {{ info.authors[0].name }} </span>
           </div>
-          <div class="book-details__item" v-if="info.bookshelves.length > 0">
+          <div v-if="info.bookshelves.length > 0" class="book-details__item">
             <h4>Genres:</h4>
             <p v-for="(genre, index) in info.bookshelves" :key="index">
               {{ genre }}
@@ -38,7 +42,7 @@
           </div>
         </div>
 
-        <img :src="info.formats['image/jpeg']" :alt="info.title" />
+        <img :src="info.formats['image/jpeg']" :alt="info.title">
       </div>
       <template #footer>
         <span class="dialog-footer">
@@ -53,24 +57,22 @@
 
 <script>
 import { InfoFilled } from "@element-plus/icons-vue";
-import { ElTooltip, ElDialog, ElButton, ElLink } from "element-plus";
+import { ElDialog, ElButton } from "element-plus";
 import { useContrastColor } from "@/composables/useContrastColor.js";
 
 export default {
   name: "BookInfo",
+  components: {
+    InfoFilled,
+    ElDialog,
+    ElButton,
+  },
   props: {
     info: Object,
     listColor: {
       type: String,
       default: "#800080",
     },
-  },
-  components: {
-    InfoFilled,
-    ElTooltip,
-    ElDialog,
-    ElButton,
-    ElLink,
   },
   setup(_props) {
     const isInfoDialogOpen = ref(false);

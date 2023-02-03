@@ -3,7 +3,7 @@
     <div v-if="isEditMode">
       <div class="book-list__form">
         <div class="book-list__form-field">
-          <el-input autofocus placeholder="query" v-model="query" />
+          <el-input v-model="query" autofocus placeholder="query" />
           <el-tooltip
             effect="dark"
             placement="right"
@@ -14,7 +14,9 @@
               Here you can enter a search query. This can be, for example, the
               title of the work or the name of the author.
             </template>
-            <el-icon :size="20"><InfoFilled /></el-icon>
+            <el-icon :size="20">
+              <InfoFilled />
+            </el-icon>
           </el-tooltip>
         </div>
         <el-tooltip
@@ -28,24 +30,31 @@
             <ElColorPicker v-model="color" :label="'lol'" />
           </div>
         </el-tooltip>
-        <ElButton @click="fetchBooks" :loading="loading">Get books</ElButton>
+        <ElButton :loading="loading" @click="fetchBooks">
+          Get books
+        </ElButton>
       </div>
-      <Table
-        @listUpdated="list = $event"
-        @listNameUpdated="listName = $event"
+      <TheTable
         :books="catalog"
         :list="list"
-        :listName="listName"
+        :list-name="listName"
+        @listUpdated="list = $event"
+        @listNameUpdated="listName = $event"
       />
       <div class="book-list__footer">
-        <ElButton @click="updateList">Save</ElButton>
-        <ElButton @click="$router.go(-1)">Cancel</ElButton>
+        <ElButton @click="updateList">
+          Save
+        </ElButton>
+        <ElButton @click="$router.go(-1)">
+          Cancel
+        </ElButton>
       </div>
     </div>
     <div v-else>
       <h2>{{ listName }}</h2>
-      <div class="books-info" v-for="(book, index) in list" :key="index">
-        <BookInfo class="books-info__item" :info="book" :listColor="color" />
+
+      <div v-for="(book, index) in list" :key="index" class="books-info">
+        <BookInfo class="books-info__item" :info="book" :list-color="color" />
       </div>
     </div>
   </div>
@@ -60,7 +69,7 @@ import {
   ElTooltip,
   ElIcon,
 } from "element-plus";
-import Table from "@/components/Table.vue";
+import TheTable from "~~/components/TheTable.vue";
 import BookInfo from "@/components/BookInfo.vue";
 import { InfoFilled } from "@element-plus/icons-vue";
 
@@ -72,13 +81,12 @@ export default {
   components: {
     ElInput,
     ElButton,
-    Table,
+    TheTable,
     BookInfo,
     ElColorPicker,
     ElTooltip,
     InfoFilled,
     ElIcon,
-    ElMessage,
   },
   setup() {
     const query = ref("");
@@ -97,6 +105,7 @@ export default {
     const fetchBooks = () => {
       if (!query.value) return ElMessage("Please enter your query");
       loading.value = true;
+
       useFetch("https://gutendex.com/books", {
         query: { search: query.value },
         onResponse({ response }) {
@@ -109,7 +118,6 @@ export default {
     const config = useRuntimeConfig();
 
     const getListDetails = () => {
-      console.log("fetch", route.params.id);
       useFetch(`${config.public.baseURL}/lists/${route.params.id}`, {
         method: "GET",
         onResponse({ response }) {
@@ -123,7 +131,7 @@ export default {
     getListDetails();
 
     const updateList = async () => {
-      const { data, error } = await useFetch(
+      const { error } = await useFetch(
         `${config.public.baseURL}/lists/${route.params.id}`,
         {
           method: "PUT",

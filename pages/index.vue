@@ -2,15 +2,15 @@
   <div class="lists">
     <div v-if="isListsExists">
       <div v-for="list in lists" :key="list._id" class="lists__item">
-        <Card
+        <TheCard
           :info="list"
           type="editable-item"
           @delete="deleteDialogVisible = true"
           @edit="redirectToListUpdate(list._id)"
         />
         <el-dialog
-          align-center
           v-model="deleteDialogVisible"
+          align-center
           :lock-scroll="false"
           title="Warning"
           width="50%"
@@ -28,21 +28,23 @@
         </el-dialog>
       </div>
     </div>
-    <div v-else>You don't have any lists</div>
+    <div v-else>
+      You don't have any lists
+    </div>
 
-    <ElButton @click="redirectToListCreation" class="lists__create-button">
+    <ElButton class="lists__create-button" @click="redirectToListCreation">
       Create
     </ElButton>
   </div>
 </template>
 
 <script>
-import Card from "@/components/Card.vue";
-import {  ElButton, ElDialog } from "element-plus";
+import TheCard from "@/components/TheCard.vue";
+import { ElButton, ElDialog } from "element-plus";
 
 export default {
   components: {
-    Card,
+    TheCard,
     ElButton,
     ElDialog,
   },
