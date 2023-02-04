@@ -1,44 +1,47 @@
 <template>
-  <div class="book-list__main">
-    <div class="books">
-      <div
-        v-for="book in list1"
-        :key="book.id"
-        class="books__item"
-        :draggable="true"
-        @dragstart="onDragStart($event, book)"
-      >
-        <TheCard :info="book" @delete="deleteItem" />
+  <div>
+    <div v-if="bp.width > 500" class="table__main">
+      <div class="books">
+        <div
+          v-for="book in list1"
+          :key="book.id"
+          class="books__item"
+          :draggable="true"
+          @dragstart="onDragStart($event, book)"
+        >
+          <TheCard :info="book" @delete="deleteItem" />
+        </div>
       </div>
-    </div>
 
-    <div
-      class="list"
-      @drop="onDrop($event)"
-      @dragenter.prevent
-      @dragover.prevent
-    >
-      <el-input
-        v-model="title"
-        placeholder="name of list"
-        class="book-list__input"
-        @change="$emit('listNameUpdated', title)"
-      />
       <div
-        v-for="book in list2"
-        :key="book.id"
-        class="books__item"
-        :draggable="false"
+        class="list"
+        @drop="onDrop($event)"
+        @dragenter.prevent
+        @dragover.prevent
       >
-        <TheCard
-          v-if="list1"
-          :draggable="false"
-          :info="book"
-          type="deletable-item"
-          @delete="deleteItem"
+        <el-input
+          v-model="title"
+          placeholder="name of list"
+          class="table__input"
+          @change="$emit('listNameUpdated', title)"
         />
+        <div
+          v-for="book in list2"
+          :key="book.id"
+          class="books__item"
+          :draggable="false"
+        >
+          <TheCard
+            v-if="list1"
+            :draggable="false"
+            :info="book"
+            type="deletable-item"
+            @delete="deleteItem"
+          />
+        </div>
       </div>
     </div>
+    <div v-else>kik</div>
   </div>
 </template>
 
@@ -60,7 +63,7 @@ export default {
     list: {
       type: Array,
       required: true,
-      default: () => [],
+      default: () => ([]),
     },
     listName: String,
   },
@@ -87,6 +90,8 @@ export default {
         title.value = newVal;
       }
     );
+
+    const bp = useBreakpoints();
 
     const onDragStart = (e, item) => {
       e.dataTransfer.dropEffect = "move";
@@ -117,13 +122,14 @@ export default {
       onDrop,
       deleteItem,
       onDragStart,
+      bp,
     };
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.book-list {
+.table {
   padding: 20px;
   text-align: center;
 

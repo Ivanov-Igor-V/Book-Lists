@@ -6,7 +6,7 @@
           <el-input v-model="query" autofocus placeholder="query" />
           <el-tooltip
             effect="dark"
-            placement="right"
+            placement="top"
             :popper-style="{ maxWidth: '200px' }"
             :show-after="500"
           >
@@ -22,17 +22,15 @@
         <el-tooltip
           :popper-style="{ maxWidth: '200px' }"
           effect="dark"
-          placement="right"
+          placement="top"
           :show-after="500"
           content="Pick a color"
         >
           <div class="color-picker">
-            <ElColorPicker v-model="color" :label="'lol'" />
+            <ElColorPicker v-model="color" />
           </div>
         </el-tooltip>
-        <ElButton :loading="loading" @click="fetchBooks">
-          Get books
-        </ElButton>
+        <ElButton :loading="loading" @click="fetchBooks"> Get books </ElButton>
       </div>
       <TheTable
         :books="catalog"
@@ -42,12 +40,8 @@
         @listNameUpdated="listName = $event"
       />
       <div class="book-list__footer">
-        <ElButton @click="updateList">
-          Save
-        </ElButton>
-        <ElButton @click="$router.go(-1)">
-          Cancel
-        </ElButton>
+        <ElButton @click="updateList"> Save </ElButton>
+        <ElButton @click="$router.go(-1)"> Cancel </ElButton>
       </div>
     </div>
     <div v-else>

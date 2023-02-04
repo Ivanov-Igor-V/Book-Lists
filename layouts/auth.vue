@@ -33,14 +33,15 @@ export default {
     display: flex;
     height: 100%;
     width: 100%;
+    justify-content: center;
+    align-items: center;
   }
 
   &__content {
     background: white;
-    width: 40%;
-    height: 40%;
+    min-width: 215px;
+    min-height: 300px;
     overflow: auto;
-    margin: auto;
     border-radius: 10px;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
     color: var(--color-2);

@@ -25,6 +25,7 @@
     "@vueuse/core": "^9.10.0",
     "element-plus": "^2.2.28",
     "eslint-plugin-nuxt": "^4.0.0",
+    "nuxt3-breakpoints": "^1.0.7",
     "unplugin-icons": "^0.13.2",
     "unplugin-vue-components": "^0.17.18"
   }

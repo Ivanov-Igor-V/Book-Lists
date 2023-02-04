@@ -61,7 +61,6 @@ export default {
     const name = ref(null);
     const password = ref(null);
     const isLogin = ref(true);
-    const errors = ref(null);
 
     const buttonText = computed(() => (isLogin.value ? "SignUp" : "SignIn"));
 
@@ -73,7 +72,8 @@ export default {
         body: { email: email.value, password: password.value },
       });
       if (error.value) {
-        ElMessage(error.value.data.errors[0])
+        if (!error.value.data?.errors.length) return;
+        ElMessage(error.value.data?.errors[0]);
         return;
       }
       if (data.value.token) {
@@ -98,7 +98,7 @@ export default {
       );
 
       if (error.value) {
-        ElMessage(error.value.data.errors[0])
+        ElMessage(error.value.data.errors[0]);
         return;
       }
 
@@ -122,7 +122,6 @@ export default {
       name,
       email,
       password,
-      errors,
       sendForm,
       isLogin,
       buttonText,

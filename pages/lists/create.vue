@@ -6,7 +6,7 @@
         <el-tooltip
           :popper-style="{ maxWidth: '200px' }"
           effect="dark"
-          placement="right"
+          placement="top"
           :show-after="500"
         >
           <template #content>
@@ -21,7 +21,7 @@
       <el-tooltip
         :popper-style="{ maxWidth: '200px' }"
         effect="dark"
-        placement="right"
+        placement="top"
         :show-after="500"
         content="Pick a color"
       >
@@ -29,9 +29,7 @@
           <ElColorPicker v-model="color" :label="'lol'" />
         </div>
       </el-tooltip>
-      <ElButton :loading="loading" @click="fetchBooks">
-        Get books
-      </ElButton>
+      <ElButton :loading="loading" @click="fetchBooks"> Get books </ElButton>
     </div>
     <TheTable
       :books="catalog"
@@ -41,9 +39,7 @@
       @listNameUpdated="listName = $event"
     />
     <div class="book-list__footer">
-      <ElButton @click="addList">
-        Save
-      </ElButton>
+      <ElButton @click="addList"> Save </ElButton>
     </div>
   </div>
 </template>

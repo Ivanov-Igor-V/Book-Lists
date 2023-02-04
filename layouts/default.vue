@@ -1,7 +1,11 @@
 <template>
   <div class="default-layout">
     <header class="default-layout__header">
-      <el-dropdown class="dropdown" trigger="click" @visible-change="test">
+      <el-dropdown
+        class="dropdown"
+        trigger="click"
+        @visible-change="onDropdownVisibilityChange"
+      >
         <el-icon class="dropdown__toggler" :size="50">
           <Expand v-if="!isDropdownOpen" />
           <Fold v-else />
@@ -46,7 +50,7 @@ import {
   ElIcon,
 } from "element-plus";
 import { Expand, Fold } from "@element-plus/icons-vue";
-import { breakpointsTailwind, useBreakpoints } from "@vueuse/core";
+// import { breakpointsTailwind, useBreakpoints } from "@vueuse/core";
 export default {
   name: "DefaultLayout",
   components: {
@@ -58,10 +62,12 @@ export default {
     Fold,
   },
   setup() {
-    const breakpoints = useBreakpoints(breakpointsTailwind);
+    // const breakpoints = useBreakpoints(breakpointsTailwind);
 
-    const smAndLarger = breakpoints.greaterOrEqual("sm"); // sm and larger
-    const smSmaller = breakpoints.smaller("sm");
+    const bp = useBreakpoints();
+
+    // const smAndLarger = breakpoints.greaterOrEqual("sm"); // sm and larger
+    // const smSmaller = breakpoints.smaller("sm");
 
     const LogOut = () => {
       localStorage.clear();
@@ -70,17 +76,18 @@ export default {
 
     const isDropdownOpen = ref(false);
 
-    const test = () => {
+    const onDropdownVisibilityChange = () => {
       isDropdownOpen.value = !isDropdownOpen.value;
     };
 
     return {
-      breakpoints,
-      smAndLarger,
-      smSmaller,
+      // breakpoints,
+      // smAndLarger,
+      // smSmaller,
       LogOut,
       isDropdownOpen,
-      test,
+      onDropdownVisibilityChange,
+      bp,
     };
   },
 };
@@ -89,7 +96,6 @@ export default {
 <style lang="scss" scoped>
 .default-layout {
   height: 100vh;
-  color: black;
   background: var(--color-1);
 
   &__main {
@@ -99,9 +105,9 @@ export default {
 
   &__content {
     background: white;
-    width: 100%;
+    width: 80%;
     overflow: auto;
-    margin: 100px;
+    margin: 80px auto;
     border-radius: 10px;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
     color: var(--color-2);
