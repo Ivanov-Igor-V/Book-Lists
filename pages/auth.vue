@@ -69,6 +69,7 @@ export default {
     const loginHandler = async () => {
       const { data, error } = await useFetch(`${config.public.baseURL}/login`, {
         method: "POST",
+        mode: "no-cors",
         body: { email: email.value, password: password.value },
       });
       if (error.value) {
