@@ -1,11 +1,11 @@
-// "https://express-back.onraender.com",
+// "https://express-back.onrender.com",
 // "http://localhost:5000"
 
 export default defineNuxtConfig({
   css: ["@/assets/main.scss", "element-plus/dist/index.css"],
   runtimeConfig: {
     public: {
-      baseURL: "https://express-back.onraender.com",
+      baseURL: "https://express-back.onrender.com",
     },
   },
   ssr: false,

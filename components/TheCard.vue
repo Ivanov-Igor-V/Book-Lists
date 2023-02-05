@@ -1,6 +1,7 @@
 <template>
   <div
     class="card"
+    :class="{ 'card--mobile': type === 'mobile-card' }"
     :style="{
       background: info?.color,
       color: info.color ? textColor : '',
@@ -62,12 +63,20 @@
           />
         </el-icon>
       </el-tooltip>
+
+      <el-icon
+        v-if="type === 'mobile-card'"
+        color="white"
+        @click="$emit('addItem')"
+      >
+        <Plus />
+      </el-icon>
     </div>
   </div>
 </template>
 
 <script>
-import { Delete, Edit, Document } from "@element-plus/icons-vue";
+import { Delete, Edit, Document, Plus } from "@element-plus/icons-vue";
 import { ElTooltip, ElIcon } from "element-plus";
 import { useContrastColor } from "@/composables/useContrastColor.js";
 
@@ -79,13 +88,19 @@ export default {
     Edit,
     Document,
     ElIcon,
+    Plus,
   },
   props: {
     type: {
       type: String,
       default: "item",
       validator(value) {
-        return ["item", "deletable-item", "editable-item"].includes(value);
+        return [
+          "item",
+          "mobile-card",
+          "deletable-item",
+          "editable-item",
+        ].includes(value);
       },
     },
     info: Object,

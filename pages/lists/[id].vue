@@ -1,37 +1,12 @@
 <template>
   <div class="book-list">
     <div v-if="isEditMode">
-      <div class="book-list__form">
-        <div class="book-list__form-field">
-          <el-input v-model="query" autofocus placeholder="query" />
-          <el-tooltip
-            effect="dark"
-            placement="top"
-            :popper-style="{ maxWidth: '200px' }"
-            :show-after="500"
-          >
-            <template #content>
-              Here you can enter a search query. This can be, for example, the
-              title of the work or the name of the author.
-            </template>
-            <el-icon :size="20">
-              <InfoFilled />
-            </el-icon>
-          </el-tooltip>
-        </div>
-        <el-tooltip
-          :popper-style="{ maxWidth: '200px' }"
-          effect="dark"
-          placement="top"
-          :show-after="500"
-          content="Pick a color"
-        >
-          <div class="color-picker">
-            <ElColorPicker v-model="color" />
-          </div>
-        </el-tooltip>
-        <ElButton :loading="loading" @click="fetchBooks"> Get books </ElButton>
-      </div>
+      <ListForm
+        :list-color="color"
+        @colorPicked="onColorPick"
+        @searchBook="fetchBooks"
+        @queryChanged="onQueryChange"
+      />
       <TheTable
         :books="catalog"
         :list="list"
@@ -55,17 +30,10 @@
 </template>
 
 <script>
-import {
-  ElMessage,
-  ElInput,
-  ElButton,
-  ElColorPicker,
-  ElTooltip,
-  ElIcon,
-} from "element-plus";
+import { ElMessage, ElButton } from "element-plus";
 import TheTable from "~~/components/TheTable.vue";
+import ListForm from "~~/components/ListForm.vue";
 import BookInfo from "@/components/BookInfo.vue";
-import { InfoFilled } from "@element-plus/icons-vue";
 
 definePageMeta({
   keepalive: false,
@@ -73,14 +41,10 @@ definePageMeta({
 
 export default {
   components: {
-    ElInput,
     ElButton,
     TheTable,
     BookInfo,
-    ElColorPicker,
-    ElTooltip,
-    InfoFilled,
-    ElIcon,
+    ListForm,
   },
   setup() {
     const query = ref("");
@@ -107,6 +71,14 @@ export default {
           loading.value = false;
         },
       });
+    };
+
+    const onColorPick = (_newColor) => {
+      color.value = _newColor;
+    };
+
+    const onQueryChange = (_newQuery) => {
+      query.value = _newQuery;
     };
 
     const config = useRuntimeConfig();
@@ -156,6 +128,9 @@ export default {
       listName,
       loading,
 
+      onColorPick,
+      onQueryChange,
+
       isEditMode,
 
       fetchBooks,
@@ -169,25 +144,7 @@ export default {
 
 <style lang="scss" scoped>
 .book-list {
-  padding: 20px;
   text-align: center;
-
-  &__form {
-    display: flex;
-    width: 200px;
-    flex-direction: column;
-    align-items: center;
-    margin: auto;
-    margin-bottom: 10px;
-  }
-
-  &__form-field {
-    display: inline-flex;
-    color: var(--color-2);
-    align-items: center;
-    gap: 5px;
-    margin-bottom: 10px;
-  }
 
   &__main {
     display: grid;
@@ -195,16 +152,16 @@ export default {
     gap: 10%;
     margin-bottom: 20px;
   }
+
+  &__footer {
+    display: flex;
+    justify-content: center;
+  }
 }
 
 .books-info {
   &__item {
     margin-bottom: 10px;
   }
-}
-
-.color-picker {
-  margin-bottom: 10px;
-  width: 100%;
 }
 </style>

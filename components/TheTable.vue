@@ -41,7 +41,34 @@
         </div>
       </div>
     </div>
-    <div v-else>kik</div>
+    <div v-else>
+      <div class="list-mobile">
+        <el-input
+          v-model="title"
+          placeholder="name of list"
+          class="table__input"
+          @change="$emit('listNameUpdated', title)"
+        />
+        <div v-for="book in list2" :key="book.id" class="books__item">
+          <TheCard
+            v-if="list1"
+            :info="book"
+            type="deletable-item"
+            @delete="deleteItem"
+          />
+        </div>
+      </div>
+      <div class="books-mobile">
+        <div v-for="book in list1" :key="book.id" class="books-mobile__item">
+          <TheCard
+            :info="book"
+            @addItem="onAddItem(book)"
+            type="mobile-card"
+            @delete="deleteItem"
+          />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -63,7 +90,7 @@ export default {
     list: {
       type: Array,
       required: true,
-      default: () => ([]),
+      default: () => [],
     },
     listName: String,
   },
@@ -115,6 +142,11 @@ export default {
       if (index >= 0) list2.value.splice(index, 1);
     };
 
+    const onAddItem = (_item) => {
+      list2.value.push(_item);
+      emit("listUpdated", list2.value);
+    };
+
     return {
       list1,
       list2,
@@ -123,6 +155,7 @@ export default {
       deleteItem,
       onDragStart,
       bp,
+      onAddItem,
     };
   },
 };
@@ -171,6 +204,23 @@ export default {
   }
 }
 
+.books-mobile {
+  border: 2px dotted var(--color-2);
+  border-radius: 10px;
+  padding: 10px;
+  min-height: 40px;
+  max-height: 300px;
+  overflow: auto;
+  margin-bottom: 10px;
+
+  &__item {
+    background: #fff;
+    color: black;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+}
+
 .list {
   border: 2px dotted var(--color-2);
   border-radius: 10px;
@@ -185,6 +235,23 @@ export default {
 
   .books__item {
     cursor: initial;
+  }
+}
+
+.list-mobile {
+  border: 2px dotted var(--color-2);
+  border-radius: 10px;
+  min-height: 40px;
+  padding: 10px;
+  max-height: 150px;
+  margin-bottom: 10px;
+
+  .books__item {
+    cursor: initial;
+  }
+
+  &__area {
+    height: 100%;
   }
 }
 </style>
