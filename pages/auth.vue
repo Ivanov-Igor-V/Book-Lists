@@ -70,8 +70,9 @@ export default {
       const { data, error } = await useFetch(`${config.public.baseURL}/login`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
-          "X-Requested-With": "XMLHttpRequest",
+          // "Content-Type": "application/json",
+          // "X-Requested-With": "XMLHttpRequest",
+          "Access-Control-Allow-Origin": "https://express-back.onrender.com",
         },
         // mode: "no-cors",
         body: { email: email.value, password: password.value },
