@@ -73,7 +73,7 @@ export default {
           "Content-Type": "application/json",
           "X-Requested-With": "XMLHttpRequest",
         },
-        mode: "no-cors",
+        // mode: "no-cors",
         body: { email: email.value, password: password.value },
       });
       if (error.value) {
