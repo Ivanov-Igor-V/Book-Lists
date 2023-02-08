@@ -69,12 +69,16 @@ export default {
     const loginHandler = async () => {
       const { data, error } = await useFetch(`${config.public.baseURL}/login`, {
         method: "POST",
-        headers: {
-          // "Content-Type": "application/json",
-          // "X-Requested-With": "XMLHttpRequest",
-          "Access-Control-Allow-Origin": "https://express-back.onrender.com",
-        },
-        // mode: "no-cors",
+        // headers: {
+        //   "Content-Type": "application/json",
+        //   Accept: "application/json",
+        //   // "X-Requested-With": "XMLHttpRequest",
+        //   // "Access-Control-Allow-Origin": "https://express-back.onrender.com",
+        // },
+        // mode: "opaque",
+        // headers: useRequestHeaders({
+        //   "Content-Type": "application/json",
+        // }),
         body: { email: email.value, password: password.value },
       });
       if (error.value) {
