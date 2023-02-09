@@ -41,26 +41,20 @@ export default {
 
     const loading = ref(false);
 
-    const fetchBooks = () => {
-      if (!query.value) return ElMessage("Please enter name of the author");
-      loading.value = true;
-      useFetch("https://gutendex.com/books", {
-        query: { search: query.value },
-        onResponse({ response }) {
-          loading.value = false;
-          if (!response._data.results.length) {
-            ElMessage("No results were found for this query");
-            return;
-          }
-          catalog.value = response._data.results;
-        },
-      });
+    const fetchBooks = async () => {
+      const { data } = await useGutendex(query.value);
+
+      if (data) {
+        catalog.value = data.results;
+      }
     };
 
-    const config = useRuntimeConfig();
+    const onQueryChange = (_newQuery) => {
+      query.value = _newQuery;
+    };
 
     const addList = async () => {
-      const { error } = await useFetch(`${config.public.baseURL}/lists`, {
+      const { error } = await useMyFetch(`/lists`, {
         method: "POST",
         body: {
           name: listName.value,
@@ -85,6 +79,7 @@ export default {
       loading,
       listName,
       addList,
+      onQueryChange,
     };
   },
 };

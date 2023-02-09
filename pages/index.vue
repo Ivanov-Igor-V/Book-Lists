@@ -28,9 +28,7 @@
         </el-dialog>
       </div>
     </div>
-    <div v-else>
-      You don't have any lists
-    </div>
+    <div v-else>You don't have any lists</div>
 
     <ElButton class="lists__create-button" @click="redirectToListCreation">
       Create
@@ -39,22 +37,19 @@
 </template>
 
 <script>
-import TheCard from "@/components/TheCard.vue";
 import { ElButton, ElDialog } from "element-plus";
 
 export default {
   components: {
-    TheCard,
     ElButton,
     ElDialog,
   },
   setup() {
     const lists = ref(null);
-    const config = useRuntimeConfig();
     const router = useRouter();
 
     const getMyLists = () => {
-      useFetch(`${config.public.baseURL}/lists`, {
+      useMyFetch(`/lists`, {
         query: { id: localStorage.id },
         onResponse({ response }) {
           lists.value = response._data;
@@ -85,7 +80,7 @@ export default {
     };
 
     const deleteList = (_id) => {
-      useFetch(`${config.public.baseURL}/lists/${_id}`, {
+      useMyFetch(`/lists/${_id}`, {
         method: "DELETE",
         onResponse() {
           deleteDialogVisible.value = false;

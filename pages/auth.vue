@@ -42,6 +42,8 @@ import {
   ElForm,
 } from "element-plus";
 
+// import { useMyFetch } from "@/composables/useMyFetch.js";
+
 definePageMeta({
   layout: "auth",
 });
@@ -67,20 +69,11 @@ export default {
     const config = useRuntimeConfig();
 
     const loginHandler = async () => {
-      const { data, error } = await useFetch(`${config.public.baseURL}/login`, {
+      const { data, error } = await useMyFetch(`/login`, {
         method: "POST",
-        headers: {
-          // "Content-Type": "application/json",
-          // Accept: "application/json",
-          // "X-Requested-With": "XMLHttpRequest",
-          "Access-Control-Allow-Origin": "*",
-        },
-        // mode: "opaque",
-        // headers: useRequestHeaders({
-        //   "Content-Type": "application/json",
-        // }),
         body: { email: email.value, password: password.value },
       });
+
       if (error.value) {
         if (!error.value.data?.errors.length) return;
         ElMessage(error.value.data?.errors[0]);
@@ -95,17 +88,14 @@ export default {
     };
 
     const registrationHandler = async () => {
-      const { data, error } = await useFetch(
-        `${config.public.baseURL}/registration`,
-        {
-          method: "POST",
-          body: {
-            name: name.value,
-            email: email.value,
-            password: password.value,
-          },
-        }
-      );
+      const { data, error } = await useMyFetch(`/registration`, {
+        method: "POST",
+        body: {
+          name: name.value,
+          email: email.value,
+          password: password.value,
+        },
+      });
 
       if (error.value) {
         ElMessage(error.value.data.errors[0]);

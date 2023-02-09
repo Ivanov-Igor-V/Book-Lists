@@ -60,17 +60,12 @@ export default {
 
     const loading = ref(false);
 
-    const fetchBooks = () => {
-      if (!query.value) return ElMessage("Please enter your query");
-      loading.value = true;
+    const fetchBooks = async () => {
+      const { data } = await useGutendex(query.value);
 
-      useFetch("https://gutendex.com/books", {
-        query: { search: query.value },
-        onResponse({ response }) {
-          catalog.value = response._data.results;
-          loading.value = false;
-        },
-      });
+      if (data) {
+        catalog.value = data.results;
+      }
     };
 
     const onColorPick = (_newColor) => {
@@ -81,11 +76,8 @@ export default {
       query.value = _newQuery;
     };
 
-    const config = useRuntimeConfig();
-
     const getListDetails = () => {
-      useFetch(`${config.public.baseURL}/lists/${route.params.id}`, {
-        method: "GET",
+      useMyFetch(`/lists/${route.params.id}`, {
         onResponse({ response }) {
           listName.value = response._data?.name;
           list.value = response._data?.list;
@@ -97,17 +89,14 @@ export default {
     getListDetails();
 
     const updateList = async () => {
-      const { error } = await useFetch(
-        `${config.public.baseURL}/lists/${route.params.id}`,
-        {
-          method: "PUT",
-          body: {
-            name: listName.value,
-            list: list.value,
-            color: color.value,
-          },
-        }
-      );
+      const { error } = await useMyFetch(`/lists/${route.params.id}`, {
+        method: "PUT",
+        body: {
+          name: listName.value,
+          list: list.value,
+          color: color.value,
+        },
+      });
       if (error.value) {
         ElMessage(error.value.data.errors[0]);
         return;

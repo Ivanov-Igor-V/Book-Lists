@@ -3,24 +3,11 @@
 
 export default defineNuxtConfig({
   css: ["@/assets/main.scss", "element-plus/dist/index.css"],
-  runtimeConfig: {
-    public: {
-      // baseURL: "http://localhost:5000",
-      baseURL: "https://express-back.onrender.com",
-    },
+  imports: {
+    autoImport: true,
   },
   ssr: false,
-  modules: [
-    ['nuxt3-breakpoints', {
-      sm: 576,
-      md: 768,
-      lg: 992,
-      xl: 1200,
-      options: {
-        throttle: 200,
-      }
-    }]
-  ],
+  modules: ["nuxt3-breakpoints"],
   app: {
     head: {
       charset: "utf-16",
