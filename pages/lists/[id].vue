@@ -31,9 +31,6 @@
 
 <script>
 import { ElMessage, ElButton } from "element-plus";
-import TheTable from "~~/components/TheTable.vue";
-import ListForm from "~~/components/ListForm.vue";
-import BookInfo from "@/components/BookInfo.vue";
 
 definePageMeta({
   keepalive: false,
@@ -42,9 +39,6 @@ definePageMeta({
 export default {
   components: {
     ElButton,
-    TheTable,
-    BookInfo,
-    ListForm,
   },
   setup() {
     const query = ref("");

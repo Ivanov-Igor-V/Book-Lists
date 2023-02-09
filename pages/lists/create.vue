@@ -6,6 +6,7 @@
       @queryChanged="onQueryChange"
     />
     <TheTable
+      :loading="loading"
       :books="catalog"
       :list="list"
       :list-name="listName"
@@ -20,14 +21,10 @@
 
 <script>
 import { ElMessage, ElButton } from "element-plus";
-import TheTable from "@/components/TheTable.vue";
-import ListForm from "~~/components/ListForm.vue";
 
 export default {
   components: {
     ElButton,
-    TheTable,
-    ListForm,
   },
   setup() {
     const query = ref("");
@@ -42,10 +39,12 @@ export default {
     const loading = ref(false);
 
     const fetchBooks = async () => {
+      loading.value = true;
       const { data } = await useGutendex(query.value);
+      loading.value = false;
 
       if (data) {
-        catalog.value = data.results;
+        catalog.value = data.value.results;
       }
     };
 
@@ -53,6 +52,9 @@ export default {
       query.value = _newQuery;
     };
 
+    const onColorPick = (_newColor) => {
+      color.value = _newColor;
+    };
     const addList = async () => {
       const { error } = await useMyFetch(`/lists`, {
         method: "POST",
@@ -80,6 +82,7 @@ export default {
       listName,
       addList,
       onQueryChange,
+      onColorPick,
     };
   },
 };

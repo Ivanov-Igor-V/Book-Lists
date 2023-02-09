@@ -2,15 +2,32 @@
   <div>
     <div v-if="bp.width > 500" class="table__main">
       <div class="books">
-        <div
-          v-for="book in list1"
-          :key="book.id"
-          class="books__item"
-          :draggable="true"
-          @dragstart="onDragStart($event, book)"
+        <el-skeleton
+          style="--el-skeleton-circle-size: 100px"
+          :loading="loading"
+          :count="4"
+          animated
         >
-          <TheCard :info="book" @delete="deleteItem" />
-        </div>
+          <template #template>
+            <div style="padding: 5px">
+              <el-skeleton-item
+                variant="h3"
+                style="width: 100%; height: 30px"
+              />
+            </div>
+          </template>
+          <template #default>
+            <div
+              v-for="book in list1"
+              :key="book.id"
+              class="books__item"
+              :draggable="true"
+              @dragstart="onDragStart($event, book)"
+            >
+              <TheCard :info="book" @delete="deleteItem" />
+            </div>
+          </template>
+        </el-skeleton>
       </div>
 
       <div
@@ -21,6 +38,7 @@
       >
         <el-input
           v-model="title"
+          autofocus
           placeholder="name of list"
           class="table__input"
           @change="$emit('listNameUpdated', title)"
@@ -73,14 +91,14 @@
 </template>
 
 <script>
-import TheCard from "@/components/TheCard.vue";
-import { ElMessage, ElInput } from "element-plus";
+import { ElMessage, ElInput, ElSkeleton, ElSkeletonItem } from "element-plus";
 
 export default {
   name: "TheTable",
   components: {
-    TheCard,
     ElInput,
+    ElSkeleton,
+    ElSkeletonItem,
   },
   props: {
     books: {
@@ -93,6 +111,7 @@ export default {
       default: () => [],
     },
     listName: String,
+    loading: Boolean,
   },
   setup(_props, { emit }) {
     const list1 = ref(_props.books);

@@ -12,5 +12,6 @@ export const useGutendex = async function (_query) {
     ElMessage(error.value.data?.errors[0]);
     return;
   }
+
   return { data, error };
 };

@@ -8,22 +8,39 @@
       inactive-text="SignUp"
     />
     <transition-group name="list">
-      <ElForm>
-        <el-form-item>
-          <el-input v-model="email" placeholder="email" />
-        </el-form-item>
-        <el-form-item>
-          <el-input
-            v-model="password"
-            type="password"
-            placeholder="password"
-            show-password
-          />
-        </el-form-item>
-        <el-form-item v-if="!isLogin">
-          <el-input v-model="name" placeholder="name" />
-        </el-form-item>
-      </ElForm>
+      <div v-if="!isLogin" class="auth__form">
+        <ElForm>
+          <el-form-item>
+            <el-input autofocus v-model="email" placeholder="email" />
+          </el-form-item>
+          <el-form-item>
+            <el-input
+              v-model="password"
+              type="password"
+              placeholder="password"
+              show-password
+            />
+          </el-form-item>
+          <el-form-item>
+            <el-input v-model="name" placeholder="name" />
+          </el-form-item>
+        </ElForm>
+      </div>
+      <div v-else class="auth__form">
+        <ElForm>
+          <el-form-item>
+            <el-input autofocus v-model="email" placeholder="email" />
+          </el-form-item>
+          <el-form-item>
+            <el-input
+              v-model="password"
+              type="password"
+              placeholder="password"
+              show-password
+            />
+          </el-form-item>
+        </ElForm>
+      </div>
     </transition-group>
 
     <el-button class="auth__confirm" @click="sendForm">
@@ -42,7 +59,7 @@ import {
   ElForm,
 } from "element-plus";
 
-// import { useMyFetch } from "@/composables/useMyFetch.js";
+import { useMagicKeys } from "@vueuse/core";
 
 definePageMeta({
   layout: "auth",
@@ -59,14 +76,19 @@ export default {
   setup() {
     const router = useRouter();
 
+    const { enter } = useMagicKeys();
+    watchEffect(() => {
+      if (enter.value) {
+        sendForm();
+      }
+    });
+
     const email = ref(null);
     const name = ref(null);
     const password = ref(null);
     const isLogin = ref(true);
 
     const buttonText = computed(() => (isLogin.value ? "SignUp" : "SignIn"));
-
-    const config = useRuntimeConfig();
 
     const loginHandler = async () => {
       const { data, error } = await useMyFetch(`/login`, {
@@ -139,6 +161,11 @@ export default {
   position: absolute;
   top: 30px;
   height: 80%;
+
+  &__form {
+    position: absolute;
+    top: 60px;
+  }
 
   &__switch {
     margin-bottom: 18px;

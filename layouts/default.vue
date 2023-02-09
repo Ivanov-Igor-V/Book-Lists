@@ -7,8 +7,10 @@
         @visible-change="onDropdownVisibilityChange"
       >
         <el-icon class="dropdown__toggler" :size="50">
-          <Expand v-if="!isDropdownOpen" />
-          <Fold v-else />
+          <transition name="fade" mode="out-in">
+            <Expand v-if="!isDropdownOpen" />
+            <Fold v-else />
+          </transition>
         </el-icon>
         <template #dropdown>
           <el-dropdown-menu>
@@ -136,5 +138,15 @@ export default {
 .dropdown {
   position: absolute;
   left: 5px;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
