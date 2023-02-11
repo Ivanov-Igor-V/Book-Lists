@@ -52,7 +52,6 @@ import {
   ElIcon,
 } from "element-plus";
 import { Expand, Fold } from "@element-plus/icons-vue";
-// import { breakpointsTailwind, useBreakpoints } from "@vueuse/core";
 export default {
   name: "DefaultLayout",
   components: {
@@ -64,12 +63,7 @@ export default {
     Fold,
   },
   setup() {
-    // const breakpoints = useBreakpoints(breakpointsTailwind);
-
-    const bp = useBreakpoints();
-
-    // const smAndLarger = breakpoints.greaterOrEqual("sm"); // sm and larger
-    // const smSmaller = breakpoints.smaller("sm");
+    const breakpoints = useBreakpoints();
 
     const LogOut = () => {
       localStorage.clear();
@@ -83,13 +77,10 @@ export default {
     };
 
     return {
-      // breakpoints,
-      // smAndLarger,
-      // smSmaller,
       LogOut,
       isDropdownOpen,
       onDropdownVisibilityChange,
-      bp,
+      breakpoints,
     };
   },
 };

@@ -1,5 +1,6 @@
 // "https://express-back.onrender.com",
 // "http://localhost:5000"
+// https://lazy-tan-rooster-cap.cyclic.app
 
 export default defineNuxtConfig({
   css: ["@/assets/main.scss", "element-plus/dist/index.css"],

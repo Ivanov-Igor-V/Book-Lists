@@ -8,6 +8,7 @@
         @queryChanged="onQueryChange"
       />
       <TheTable
+        :loading="loading"
         :books="catalog"
         :list="list"
         :list-name="listName"
@@ -20,17 +21,46 @@
       </div>
     </div>
     <div v-else>
-      <h2>{{ listName }}</h2>
+      <el-skeleton
+        style="--el-skeleton-circle-size: 100px"
+        :loading="listBooksLoading"
+        animated
+      >
+        <template #template>
+          <el-skeleton-item
+            style="
+              width: 100px;
+              height: 30px;
+              margin-bottom: 20px;
+              margin-top: 20px;
+            "
+          />
+          <div v-for="(one, index) of 4" :key="index" style="padding: 5px">
+            <el-skeleton-item variant="h3" style="width: 100%; height: 30px" />
+          </div>
+        </template>
+        <template #default>
+          <h2>{{ listName }}</h2>
 
-      <div v-for="(book, index) in list" :key="index" class="books-info">
+          <div v-for="(book, index) in list" :key="index" class="books-info">
+            <BookInfo
+              class="books-info__item"
+              :info="book"
+              :list-color="color"
+            />
+          </div>
+        </template>
+      </el-skeleton>
+
+      <!-- <div v-for="(book, index) in list" :key="index" class="books-info">
         <BookInfo class="books-info__item" :info="book" :list-color="color" />
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
 
 <script>
-import { ElMessage, ElButton } from "element-plus";
+import { ElMessage, ElButton, ElSkeleton, ElSkeletonItem } from "element-plus";
 
 definePageMeta({
   keepalive: false,
@@ -39,11 +69,14 @@ definePageMeta({
 export default {
   components: {
     ElButton,
+    ElSkeleton,
+    ElSkeletonItem,
   },
   setup() {
     const query = ref("");
     const route = useRoute();
     const router = useRouter();
+    const loading = ref(false);
 
     const isEditMode = computed(() => !!route.query.edit);
 
@@ -52,13 +85,15 @@ export default {
     const listName = ref(null);
     const color = ref("#800080");
 
-    const loading = ref(false);
+    const listBooksLoading = ref(true);
 
     const fetchBooks = async () => {
+      loading.value = true;
       const { data } = await useGutendex(query.value);
+      loading.value = false;
 
       if (data) {
-        catalog.value = data.results;
+        catalog.value = data.value.results;
       }
     };
 
@@ -71,8 +106,10 @@ export default {
     };
 
     const getListDetails = () => {
+      listBooksLoading.value = true;
       useMyFetch(`/lists/${route.params.id}`, {
         onResponse({ response }) {
+          listBooksLoading.value = false;
           listName.value = response._data?.name;
           list.value = response._data?.list;
           color.value = response._data?.color;
@@ -110,6 +147,7 @@ export default {
       color,
       listName,
       loading,
+      listBooksLoading,
 
       onColorPick,
       onQueryChange,

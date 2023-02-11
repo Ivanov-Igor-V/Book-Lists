@@ -43,7 +43,7 @@
       </div>
     </transition-group>
 
-    <el-button class="auth__confirm" @click="sendForm">
+    <el-button :loading="loading" class="auth__confirm" @click="sendForm">
       {{ buttonText }}
     </el-button>
   </div>
@@ -57,6 +57,7 @@ import {
   ElFormItem,
   ElSwitch,
   ElForm,
+  ElLoading,
 } from "element-plus";
 
 import { useMagicKeys } from "@vueuse/core";
@@ -76,6 +77,17 @@ export default {
   setup() {
     const router = useRouter();
 
+    const openFullScreen2 = () => {
+      const loading = ElLoading.service({
+        lock: true,
+        text: "Loading",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
+      setTimeout(() => {
+        loading.close();
+      }, 2000);
+    };
+
     const { enter } = useMagicKeys();
     watchEffect(() => {
       if (enter.value) {
@@ -87,14 +99,16 @@ export default {
     const name = ref(null);
     const password = ref(null);
     const isLogin = ref(true);
-
+    const loading = ref(false);
     const buttonText = computed(() => (isLogin.value ? "SignUp" : "SignIn"));
 
     const loginHandler = async () => {
+      loading.value = true;
       const { data, error } = await useMyFetch(`/login`, {
         method: "POST",
         body: { email: email.value, password: password.value },
       });
+      loading.value = false;
 
       if (error.value) {
         if (!error.value.data?.errors.length) return;
@@ -110,6 +124,8 @@ export default {
     };
 
     const registrationHandler = async () => {
+      loading.value = true;
+
       const { data, error } = await useMyFetch(`/registration`, {
         method: "POST",
         body: {
@@ -125,6 +141,8 @@ export default {
       }
 
       if (data.value.token) {
+        loading.value = false;
+
         localStorage.setItem("token", data.value.token);
         // TODO put id into store
         localStorage.setItem("id", data.value.id);
@@ -141,12 +159,14 @@ export default {
     };
 
     return {
+      loading,
       name,
       email,
       password,
       sendForm,
       isLogin,
       buttonText,
+      openFullScreen2,
     };
   },
 };
@@ -187,6 +207,5 @@ export default {
 .list-enter-from,
 .list-leave-to {
   opacity: 0;
-  transform: scale(1.1);
 }
 </style>

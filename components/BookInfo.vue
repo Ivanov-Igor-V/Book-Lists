@@ -19,9 +19,10 @@
       :show-close="false"
       :lock-scroll="false"
       center
+      :fullscreen="breakpoints.width < 500"
       width="80%"
     >
-      <div class="book-details">
+      <div class="book-details" v-if="breakpoints.width > 500">
         <div class="book-details__text">
           <h2>{{ info.title }}</h2>
           <div class="book-details__item">
@@ -44,6 +45,34 @@
 
         <img :src="info.formats['image/jpeg']" :alt="info.title" />
       </div>
+
+      <div class="book-details book-details--mobile" v-else>
+        <h2>{{ info.title }}</h2>
+
+        <el-image :src="info.formats['image/jpeg']" :alt="info.title" />
+
+        <div class="book-details__text">
+          <div class="book-details__item book-details__item--mobile">
+            <h4>Author:</h4>
+            <span> {{ info.authors[0].name }} </span>
+          </div>
+          <div
+            v-if="info.bookshelves.length > 0"
+            class="book-details__item book-details__item--mobile"
+          >
+            <h4>Genres:</h4>
+            <p v-for="(genre, index) in info.bookshelves" :key="index">
+              {{ genre }}
+            </p>
+          </div>
+          <div class="book-details__item book-details__item--mobile">
+            <h4>Link for reading:</h4>
+            <a :href="linkToRead" target="_blank">
+              {{ info.title }}
+            </a>
+          </div>
+        </div>
+      </div>
       <template #footer>
         <span class="dialog-footer">
           <el-button type="primary" @click="isInfoDialogOpen = false">
@@ -57,7 +86,7 @@
 
 <script>
 import { InfoFilled } from "@element-plus/icons-vue";
-import { ElDialog, ElButton } from "element-plus";
+import { ElDialog, ElButton, ElImage } from "element-plus";
 import { useContrastColor } from "@/composables/useContrastColor.js";
 
 export default {
@@ -66,6 +95,7 @@ export default {
     InfoFilled,
     ElDialog,
     ElButton,
+    ElImage,
   },
   props: {
     info: Object,
@@ -76,12 +106,13 @@ export default {
   },
   setup(_props) {
     const isInfoDialogOpen = ref(false);
+    const breakpoints = useBreakpoints();
 
     const textColor = useContrastColor(_props.listColor);
 
     const linkToRead = computed(() => _props.info.formats["text/html"]);
 
-    return { isInfoDialogOpen, linkToRead, textColor };
+    return { isInfoDialogOpen, linkToRead, textColor, breakpoints };
   },
 };
 </script>
@@ -136,8 +167,18 @@ export default {
     justify-content: flex-start;
   }
 
+  &__item--mobile {
+    justify-content: center;
+  }
+
   img {
     margin-left: 20px;
   }
+}
+
+.book-details--mobile {
+  flex-direction: column;
+  text-align: center;
+  gap: 15px;
 }
 </style>

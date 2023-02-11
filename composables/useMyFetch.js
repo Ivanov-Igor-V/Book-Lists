@@ -1,5 +1,6 @@
 import { useFetch } from "#app";
-const BASE_URL = "https://express-back.onrender.com";
+// const BASE_URL = "https://express-back.onrender.com";
+const BASE_URL = "https://lazy-tan-rooster-cap.cyclic.app";
 const HEADERS = {
   "Access-Control-Allow-Origin": "*",
 };

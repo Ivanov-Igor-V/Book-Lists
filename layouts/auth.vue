@@ -9,17 +9,8 @@
 </template>
 
 <script>
-import { breakpointsTailwind, useBreakpoints } from "@vueuse/core";
 export default {
   name: "DefaultLayout",
-  setup() {
-    const breakpoints = useBreakpoints(breakpointsTailwind);
-
-    const smAndLarger = breakpoints.greaterOrEqual("sm"); // sm and larger
-    const smSmaller = breakpoints.smaller("sm");
-
-    return { breakpoints, smAndLarger, smSmaller };
-  },
 };
 </script>
 

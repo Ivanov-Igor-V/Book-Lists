@@ -67,6 +67,7 @@
           class="table__input"
           @change="$emit('listNameUpdated', title)"
         />
+
         <div v-for="book in list2" :key="book.id" class="books__item">
           <TheCard
             v-if="list1"
