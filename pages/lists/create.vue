@@ -1,6 +1,7 @@
 <template>
   <div class="book-list">
     <ListForm
+      :loading="loading"
       @colorPicked="onColorPick"
       @searchBook="fetchBooks"
       @queryChanged="onQueryChange"
@@ -20,21 +21,21 @@
 </template>
 
 <script>
-import { ElMessage, ElButton } from "element-plus";
+import { ElMessage, ElButton } from 'element-plus';
 
 export default {
   components: {
     ElButton,
   },
   setup() {
-    const query = ref("");
+    const query = ref('');
 
     const router = useRouter();
 
     const catalog = ref([]);
     const list = ref([]);
-    const listName = ref("");
-    const color = ref("#800080");
+    const listName = ref('');
+    const color = ref('#800080');
 
     const loading = ref(false);
 
@@ -57,7 +58,7 @@ export default {
     };
     const addList = async () => {
       const { error } = await useMyFetch(`/lists`, {
-        method: "POST",
+        method: 'POST',
         body: {
           name: listName.value,
           list: list.value,
@@ -69,7 +70,7 @@ export default {
         ElMessage(error.value.data.errors[0]);
         return;
       }
-      router.push("/");
+      router.push('/');
     };
 
     return {

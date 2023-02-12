@@ -50,10 +50,10 @@ import {
   ElDropdownMenu,
   ElDropdownItem,
   ElIcon,
-} from "element-plus";
-import { Expand, Fold } from "@element-plus/icons-vue";
+} from 'element-plus';
+import { Expand, Fold } from '@element-plus/icons-vue';
 export default {
-  name: "DefaultLayout",
+  name: 'DefaultLayout',
   components: {
     ElIcon,
     Expand,
@@ -133,7 +133,7 @@ export default {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s ease;
+  transition: opacity 0.2s ease;
 }
 
 .fade-enter-from,

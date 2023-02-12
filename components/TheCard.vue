@@ -76,12 +76,12 @@
 </template>
 
 <script>
-import { Delete, Edit, Document, Plus } from "@element-plus/icons-vue";
-import { ElTooltip, ElIcon } from "element-plus";
-import { useContrastColor } from "@/composables/useContrastColor.js";
+import { Delete, Edit, Document, Plus } from '@element-plus/icons-vue';
+import { ElTooltip, ElIcon } from 'element-plus';
+import { useContrastColor } from '@/composables/useContrastColor.js';
 
 export default {
-  name: "TheCard",
+  name: 'TheCard',
   components: {
     Delete,
     ElTooltip,
@@ -93,13 +93,13 @@ export default {
   props: {
     type: {
       type: String,
-      default: "item",
+      default: 'item',
       validator(value) {
         return [
-          "item",
-          "mobile-card",
-          "deletable-item",
-          "editable-item",
+          'item',
+          'mobile-card',
+          'deletable-item',
+          'editable-item',
         ].includes(value);
       },
     },
@@ -122,7 +122,7 @@ export default {
 .card {
   background: var(--color-2);
   padding: 5px 10px;
-  color: white;
+  color: var(--color-8);
   border-radius: 5px;
   display: flex;
   justify-content: space-between;

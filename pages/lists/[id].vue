@@ -2,6 +2,7 @@
   <div class="book-list">
     <div v-if="isEditMode">
       <ListForm
+        :loading="loading"
         :list-color="color"
         @colorPicked="onColorPick"
         @searchBook="fetchBooks"
@@ -16,7 +17,9 @@
         @listNameUpdated="listName = $event"
       />
       <div class="book-list__footer">
-        <ElButton @click="updateList"> Save </ElButton>
+        <ElButton :loading="confirmLoading" @click="updateList">
+          Save
+        </ElButton>
         <ElButton @click="$router.go(-1)"> Cancel </ElButton>
       </div>
     </div>
@@ -51,16 +54,12 @@
           </div>
         </template>
       </el-skeleton>
-
-      <!-- <div v-for="(book, index) in list" :key="index" class="books-info">
-        <BookInfo class="books-info__item" :info="book" :list-color="color" />
-      </div> -->
     </div>
   </div>
 </template>
 
 <script>
-import { ElMessage, ElButton, ElSkeleton, ElSkeletonItem } from "element-plus";
+import { ElMessage, ElButton, ElSkeleton, ElSkeletonItem } from 'element-plus';
 
 definePageMeta({
   keepalive: false,
@@ -73,25 +72,24 @@ export default {
     ElSkeletonItem,
   },
   setup() {
-    const query = ref("");
+    const query = ref('');
     const route = useRoute();
     const router = useRouter();
     const loading = ref(false);
+    const confirmLoading = ref(false);
 
     const isEditMode = computed(() => !!route.query.edit);
 
     const catalog = ref([]);
     const list = ref([]);
     const listName = ref(null);
-    const color = ref("#800080");
+    const color = ref('#800080');
 
     const listBooksLoading = ref(true);
 
     const fetchBooks = async () => {
       loading.value = true;
 
-      console.log(sddad)
-      
       const { data } = await useGutendex(query.value);
       loading.value = false;
 
@@ -123,8 +121,9 @@ export default {
     getListDetails();
 
     const updateList = async () => {
+      confirmLoading.value = true;
       const { error } = await useMyFetch(`/lists/${route.params.id}`, {
-        method: "PUT",
+        method: 'PUT',
         body: {
           name: listName.value,
           list: list.value,
@@ -135,7 +134,8 @@ export default {
         ElMessage(error.value.data.errors[0]);
         return;
       }
-      router.push("/");
+      confirmLoading.value = false;
+      router.push('/');
     };
 
     const deleteItem = (_id) => {
@@ -150,6 +150,7 @@ export default {
       color,
       listName,
       loading,
+      confirmLoading,
       listBooksLoading,
 
       onColorPick,

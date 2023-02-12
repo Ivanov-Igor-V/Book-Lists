@@ -33,7 +33,9 @@
         <ElColorPicker v-model="color" @change="$emit('colorPicked', color)" />
       </div>
     </el-tooltip>
-    <ElButton @click="$emit('searchBook', query)"> Get books </ElButton>
+    <ElButton :loading="loading" @click="$emit('searchBook', query)">
+      Get books
+    </ElButton>
   </div>
 </template>
 
@@ -62,6 +64,7 @@ export default {
     listColor: {
       type: String,
     },
+    loading: Boolean,
   },
   setup(_props) {
     const query = ref('');

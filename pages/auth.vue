@@ -58,12 +58,12 @@ import {
   ElSwitch,
   ElForm,
   ElLoading,
-} from "element-plus";
+} from 'element-plus';
 
-import { useMagicKeys } from "@vueuse/core";
+import { useMagicKeys } from '@vueuse/core';
 
 definePageMeta({
-  layout: "auth",
+  layout: 'auth',
 });
 
 export default {
@@ -80,8 +80,8 @@ export default {
     const openFullScreen2 = () => {
       const loading = ElLoading.service({
         lock: true,
-        text: "Loading",
-        background: "rgba(0, 0, 0, 0.7)",
+        text: 'Loading',
+        background: 'rgba(0, 0, 0, 0.7)',
       });
       setTimeout(() => {
         loading.close();
@@ -100,12 +100,12 @@ export default {
     const password = ref(null);
     const isLogin = ref(true);
     const loading = ref(false);
-    const buttonText = computed(() => (isLogin.value ? "SignUp" : "SignIn"));
+    const buttonText = computed(() => (isLogin.value ? 'SignUp' : 'SignIn'));
 
     const loginHandler = async () => {
       loading.value = true;
       const { data, error } = await useMyFetch(`/login`, {
-        method: "POST",
+        method: 'POST',
         body: { email: email.value, password: password.value },
       });
       loading.value = false;
@@ -116,10 +116,10 @@ export default {
         return;
       }
       if (data.value.token) {
-        localStorage.setItem("token", data.value.token);
-        localStorage.setItem("id", data.value.id);
-        localStorage.setItem("name", data.value.name);
-        router.push("/");
+        localStorage.setItem('token', data.value.token);
+        localStorage.setItem('id', data.value.id);
+        localStorage.setItem('name', data.value.name);
+        router.push('/');
       }
     };
 
@@ -127,7 +127,7 @@ export default {
       loading.value = true;
 
       const { data, error } = await useMyFetch(`/registration`, {
-        method: "POST",
+        method: 'POST',
         body: {
           name: name.value,
           email: email.value,
@@ -143,10 +143,10 @@ export default {
       if (data.value.token) {
         loading.value = false;
 
-        localStorage.setItem("token", data.value.token);
+        localStorage.setItem('token', data.value.token);
         // TODO put id into store
-        localStorage.setItem("id", data.value.id);
-        router.push("/");
+        localStorage.setItem('id', data.value.id);
+        router.push('/');
       }
     };
 
@@ -180,7 +180,7 @@ export default {
   align-self: center;
   position: absolute;
   top: 30px;
-  height: 80%;
+  height: 250px;
 
   &__form {
     position: absolute;

@@ -14,13 +14,13 @@ h3,h4,h5,h6 {
 
 a {
   cursor: pointer;
-  color: black;
+  color: var(--color-7);
   text-decoration: none;
   &:hover {
     text-decoration: underline;
   }
   &::visited {
-    color: black;
+    color: var(--color-7);
   }
 }
 
@@ -62,17 +62,17 @@ a {
     background-color: var(--color-5) !important;
     border-radius: 6px !important;
     box-shadow: none !important;
-    color: black !important;
+    color: var(--color-7) !important;
   }
 
   ::-webkit-input-placeholder {
-    color: black !important;
+    color: var(--color-7) !important;
     opacity: 0.3;
   }
 
   .is-focus {
     border: none !important;
-    color: black !important;
+    color: var(--color-7) !important;
     background-color: var(--color-6) !important;
   }
 
@@ -153,9 +153,10 @@ h2 {
   --el-color-primary-light-3: var(--color-4);
   --el-button-bg-color: var(--color-2) !important;
   --el-button-hover-bg-color: var(--color-3) !important;
-  --el-button-text-color: white !important;
-  --el-button-hover-text-color: white !important;
-  --el-button-hover-border-color: var(--color-3);
+  --el-button-text-color: var(--color-8) !important;
+  --el-button-hover-text-color: var(--color-8) !important;
+  --el-button-hover-border-color: var(--color-3) !important;
+  --el-border: none;
 }
 
 .el-color-picker {
@@ -180,10 +181,10 @@ h2 {
 .el-message__content,
 .el-message-icon--info {
   background-color: var(--color-2) !important;
-  color: white !important;
+  color: var(--color-8) !important;
 }
 .el-message--error,
 .el-message-icon--error {
   background-color: var(--color-2) !important;
-  color: white !important;
+  color: var(--color-8) !important;
 }

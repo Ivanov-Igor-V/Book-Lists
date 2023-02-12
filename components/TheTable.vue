@@ -226,7 +226,6 @@ export default {
 
   &__item {
     background: #fff;
-    color: black;
     border-radius: 5px;
     margin-bottom: 10px;
     cursor: grab;
@@ -244,7 +243,6 @@ export default {
 
   &__item {
     background: #fff;
-    color: black;
     border-radius: 5px;
     margin-bottom: 10px;
   }

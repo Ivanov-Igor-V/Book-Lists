@@ -1,7 +1,12 @@
 <template>
-  <div class="default-layout">
-    <div class="default-layout__main">
-      <div class="default-layout__content">
+  <div class="auth-layout">
+    <div v-if="breakpoints.width > 500" class="auth-layout__desktop">
+      <div class="auth-layout__content">
+        <slot />
+      </div>
+    </div>
+    <div v-else class="auth-layout__mobile">
+      <div class="auth-layout__content auth-layout__content--mobile">
         <slot />
       </div>
     </div>
@@ -10,17 +15,20 @@
 
 <script>
 export default {
-  name: "DefaultLayout",
+  name: 'AuthLayout',
+  setup() {
+    const breakpoints = useBreakpoints();
+    return { breakpoints };
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-.default-layout {
+.auth-layout {
   height: 100vh;
-  color: black;
   background: var(--color-1);
 
-  &__main {
+  &__desktop {
     display: flex;
     height: 100%;
     width: 100%;
@@ -42,6 +50,14 @@ export default {
     justify-content: center;
     position: relative;
   }
+
+  &__mobile,
+  &__content--mobile {
+    height: 100%;
+  }
+  // &__mobile {
+  //   height: 100%;
+  // }
 }
 
 .dropdown {
