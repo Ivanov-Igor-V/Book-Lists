@@ -22,7 +22,7 @@
       :fullscreen="breakpoints.width < 500"
       width="80%"
     >
-      <div class="book-details" v-if="breakpoints.width > 500">
+      <div v-if="breakpoints.width > 500" class="book-details">
         <div class="book-details__text">
           <h2>{{ info.title }}</h2>
           <div class="book-details__item">
@@ -46,7 +46,7 @@
         <img :src="info.formats['image/jpeg']" :alt="info.title" />
       </div>
 
-      <div class="book-details book-details--mobile" v-else>
+      <div v-else class="book-details book-details--mobile">
         <h2>{{ info.title }}</h2>
 
         <el-image :src="info.formats['image/jpeg']" :alt="info.title" />

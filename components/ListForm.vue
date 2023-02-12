@@ -3,9 +3,9 @@
     <div class="list-form__form-field">
       <el-input
         v-model="query"
-        @change="$emit('queryChanged', query)"
         autofocus
         placeholder="query"
+        @change="$emit('queryChanged', query)"
       />
       <el-tooltip
         effect="dark"
@@ -45,11 +45,11 @@ import {
   ElColorPicker,
   ElTooltip,
   ElIcon,
-} from "element-plus";
-import { InfoFilled } from "@element-plus/icons-vue";
+} from 'element-plus';
+import { InfoFilled } from '@element-plus/icons-vue';
 
 export default {
-  name: "ListForm",
+  name: 'ListForm',
   components: {
     ElInput,
     ElButton,
@@ -64,8 +64,8 @@ export default {
     },
   },
   setup(_props) {
-    const query = ref("");
-    const color = ref("#800080");
+    const query = ref('');
+    const color = ref('#800080');
 
     if (_props.listColor) {
       color.value = _props.listColor;
@@ -75,7 +75,7 @@ export default {
       () => _props.listColor,
       (newVal) => {
         color.value = newVal;
-      }
+      },
     );
 
     return {

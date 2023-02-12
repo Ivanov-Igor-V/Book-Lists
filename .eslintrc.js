@@ -8,6 +8,7 @@ module.exports = {
     "eslint:recommended",
     "plugin:nuxt/recommended",
     "@nuxt/eslint-config",
+    "prettier",
   ],
   parserOptions: {
     ecmaVersion: "latest",
@@ -52,19 +53,25 @@ module.exports = {
         singleline: 3,
       },
     ],
-    "vue/html-self-closing": ["error", {
-      "html": {
-        "void": "always",
-        "normal": "always",
-        "component": "always"
+    "vue/html-self-closing": [
+      "error",
+      {
+        html: {
+          void: "always",
+          normal: "always",
+          component: "always",
+        },
+        svg: "always",
+        math: "always",
       },
-      "svg": "always",
-      "math": "always"
-    }],
-    "vue/singleline-html-element-content-newline": ["error", {
-      "ignoreWhenNoAttributes": true,
-      "ignoreWhenEmpty": true,
-      "ignores": ["template", ]
-    }]
+    ],
+    "vue/singleline-html-element-content-newline": [
+      "error",
+      {
+        ignoreWhenNoAttributes: true,
+        ignoreWhenEmpty: true,
+        ignores: ["template"],
+      },
+    ],
   },
 };

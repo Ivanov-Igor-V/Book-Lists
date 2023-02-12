@@ -5,14 +5,23 @@
         <el-skeleton
           style="--el-skeleton-circle-size: 100px"
           :loading="loading"
-          :count="4"
           animated
+          :count="4"
         >
           <template #template>
             <div style="padding: 5px">
               <el-skeleton-item
                 variant="h3"
-                style="width: 100%; height: 30px"
+                :style="{
+                  width: '100%',
+                  height: '30px',
+                  width: '100%',
+                  height: '30px',
+                  width: '100%',
+                  height: '30px',
+                  width: '100%',
+                  height: '30px',
+                }"
               />
             </div>
           </template>
@@ -81,8 +90,8 @@
         <div v-for="book in list1" :key="book.id" class="books-mobile__item">
           <TheCard
             :info="book"
-            @addItem="onAddItem(book)"
             type="mobile-card"
+            @addItem="onAddItem(book)"
             @delete="deleteItem"
           />
         </div>
@@ -92,10 +101,10 @@
 </template>
 
 <script>
-import { ElMessage, ElInput, ElSkeleton, ElSkeletonItem } from "element-plus";
+import { ElMessage, ElInput, ElSkeleton, ElSkeletonItem } from 'element-plus';
 
 export default {
-  name: "TheTable",
+  name: 'TheTable',
   components: {
     ElInput,
     ElSkeleton,
@@ -123,38 +132,38 @@ export default {
       () => _props.books,
       (newVal) => {
         list1.value = newVal;
-      }
+      },
     );
     watch(
       () => _props.list,
       (newVal) => {
         list2.value = newVal;
-      }
+      },
     );
     watch(
       () => _props.listName,
       (newVal) => {
         title.value = newVal;
-      }
+      },
     );
 
     const bp = useBreakpoints();
 
     const onDragStart = (e, item) => {
-      e.dataTransfer.dropEffect = "move";
-      e.dataTransfer.effectAllowed = "move";
-      e.dataTransfer.setData("itemID", item.id);
+      e.dataTransfer.dropEffect = 'move';
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('itemID', item.id);
     };
 
     const onDrop = (_e) => {
-      const itemIndex = Number(_e.dataTransfer.getData("itemID"));
+      const itemIndex = Number(_e.dataTransfer.getData('itemID'));
       if (!itemIndex) return;
       if (list2.value.some((el) => el.id === itemIndex)) {
-        return ElMessage("This book has already been added");
+        return ElMessage('This book has already been added');
       }
       const bookIndex = list1.value.findIndex((el) => el.id === itemIndex);
       list2.value.push(list1.value[bookIndex]);
-      emit("listUpdated", list2.value);
+      emit('listUpdated', list2.value);
     };
 
     const deleteItem = (_id) => {
@@ -164,7 +173,7 @@ export default {
 
     const onAddItem = (_item) => {
       list2.value.push(_item);
-      emit("listUpdated", list2.value);
+      emit('listUpdated', list2.value);
     };
 
     return {

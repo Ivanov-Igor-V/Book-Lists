@@ -89,6 +89,9 @@ export default {
 
     const fetchBooks = async () => {
       loading.value = true;
+
+      console.log(sddad)
+      
       const { data } = await useGutendex(query.value);
       loading.value = false;
 

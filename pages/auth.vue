@@ -11,7 +11,7 @@
       <div v-if="!isLogin" class="auth__form">
         <ElForm>
           <el-form-item>
-            <el-input autofocus v-model="email" placeholder="email" />
+            <el-input v-model="email" autofocus placeholder="email" />
           </el-form-item>
           <el-form-item>
             <el-input
@@ -29,7 +29,7 @@
       <div v-else class="auth__form">
         <ElForm>
           <el-form-item>
-            <el-input autofocus v-model="email" placeholder="email" />
+            <el-input v-model="email" autofocus placeholder="email" />
           </el-form-item>
           <el-form-item>
             <el-input
