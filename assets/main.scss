@@ -156,7 +156,7 @@ h2 {
 .el-color-picker {
   width: 100%;
   border: 1px solid var(--color-2);
-  border-radius: 5px;
+  border-radius: 6px;
 
   * {
     border-radius: 5px;
@@ -181,4 +181,8 @@ h2 {
 .el-message-icon--error {
   background-color: var(--color-2) !important;
   color: var(--color-8) !important;
+}
+
+.el-button.is-loading:before {
+  display: none;
 }

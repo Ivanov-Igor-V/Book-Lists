@@ -73,5 +73,10 @@ module.exports = {
         ignores: ["template"],
       },
     ],
+    {
+      "vue/require-explicit-emits": ["error", {
+        "allowProps": false
+      }]
+    }
   },
 };

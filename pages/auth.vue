@@ -162,13 +162,10 @@ export default {
 
 <style scoped lang="scss">
 .auth {
-  flex-direction: column;
-  display: flex;
   max-width: 200px;
-  align-self: center;
-  position: absolute;
-  top: 30px;
+  position: relative;
   height: 250px;
+  margin: auto;
 
   &__form {
     position: absolute;

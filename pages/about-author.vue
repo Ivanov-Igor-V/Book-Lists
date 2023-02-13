@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Hi! My name is Igor, i'm a frontend developer!</h2>
-    <h4>Contact me:</h4>
+    <p>Contact me:</p>
     <div class="list">
       <div class="list__item">
         <div>telegram</div>
