@@ -130,11 +130,12 @@ export default {
           color: color.value,
         },
       });
+      confirmLoading.value = false;
+
       if (error.value) {
         ElMessage(error.value.data.errors[0]);
         return;
       }
-      confirmLoading.value = false;
       router.push('/');
     };
 

@@ -124,14 +124,14 @@ export default {
         },
       });
 
+      loading.value = false;
+
       if (error.value) {
         ElMessage(error.value.data.errors[0]);
         return;
       }
 
       if (data.value.token) {
-        loading.value = false;
-
         localStorage.setItem('token', data.value.token);
         // TODO put id into store
         localStorage.setItem('id', data.value.id);
