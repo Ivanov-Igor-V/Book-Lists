@@ -13,10 +13,9 @@
       </div>
       <div class="list__item">
         <div>email</div>
-        <a
-          href="mailto:ivanov2934@gmail.com"
-          target="_blank"
-        >ivanov2934@gmail.com</a>
+        <a href="mailto:ivanov2934@gmail.com" target="_blank"
+          >ivanov2934@gmail.com</a
+        >
       </div>
     </div>
   </div>
@@ -26,7 +25,7 @@
 .list {
   display: flex;
   flex-direction: column;
-  border: 2px dotted var(--color-2);
+  background: var(--color-9);
   border-radius: 10px;
   margin: auto;
   max-width: 300px;

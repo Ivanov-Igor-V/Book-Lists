@@ -7,7 +7,10 @@ html {
   line-height: 17px;
 }
 
-h3,h4,h5,h6 {
+h3,
+h4,
+h5,
+h6 {
   margin: 0;
   padding: 0;
 }
@@ -24,23 +27,14 @@ a {
   }
 }
 
+@font-face {
+  font-family: "Old-Soviet";
+  src: url("./fonts/Old-Soviet.otf") format("opentype");
+}
+
 * {
-  font-family: Merriweather, sans-serif;
+  font-family: Old-Soviet;
   font-weight: 400;
-}
-
-@font-face {
-  font-family: Merriweather;
-  font-style: normal;
-  font-weight: 600;
-  src: url("../font/Merriweather-Bold.ttf") format("ttf");
-}
-
-@font-face {
-  font-family: Merriweather;
-  font-style: normal;
-  font-weight: 400;
-  src: url("../font/Merriweather-Regular.ttf") format("ttf");
 }
 
 ::-webkit-scrollbar {

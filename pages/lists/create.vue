@@ -100,7 +100,7 @@ export default {
     align-items: center;
     margin: auto;
     margin-bottom: 30px;
-    border: 2px dotted var(--color-2);
+    background: var(--color-9);
     border-radius: 10px;
     padding: 10px;
   }

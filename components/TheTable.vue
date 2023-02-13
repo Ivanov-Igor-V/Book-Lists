@@ -217,7 +217,8 @@ export default {
 }
 
 .books {
-  border: 2px dotted var(--color-2);
+  background: var(--color-9);
+
   border-radius: 10px;
   padding: 10px;
   max-height: 50vh;
@@ -233,7 +234,7 @@ export default {
 }
 
 .books-mobile {
-  border: 2px dotted var(--color-2);
+  background: var(--color-9);
   border-radius: 10px;
   padding: 10px;
   min-height: 40px;
@@ -249,7 +250,7 @@ export default {
 }
 
 .list {
-  border: 2px dotted var(--color-2);
+  background: var(--color-9);
   border-radius: 10px;
   max-height: 50vh;
   min-height: 150px;
@@ -266,7 +267,7 @@ export default {
 }
 
 .list-mobile {
-  border: 2px dotted var(--color-2);
+  background: var(--color-9);
   border-radius: 10px;
   min-height: 40px;
   padding: 10px;
