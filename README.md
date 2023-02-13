@@ -8,3 +8,4 @@ yarn dev
 
 ## Development Server
 Start the development server on http://localhost:3000
+deploy https://yourbooklists.netlify.app/
