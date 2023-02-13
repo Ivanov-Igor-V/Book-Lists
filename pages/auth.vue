@@ -155,7 +155,6 @@ export default {
       sendForm,
       isLogin,
       buttonText,
-      openFullScreen2,
     };
   },
 };
