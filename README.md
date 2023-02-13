@@ -9,3 +9,4 @@ yarn dev
 ## Development Server
 Start the development server on http://localhost:3000
 deploy https://yourbooklists.netlify.app/
+docker  docker build -t book-lists . => docker run -it -p 3000:3000 book-lists
