@@ -55,9 +55,6 @@ export default {
   &__content--mobile {
     height: 100%;
   }
-  // &__mobile {
-  //   height: 100%;
-  // }
 }
 
 .dropdown {

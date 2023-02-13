@@ -30,6 +30,7 @@
       content="Pick a color"
     >
       <div class="list-form__color-picker">
+        <p v-if="breakpoints.width < 500" v-text="'Pick a color of list'" />
         <ElColorPicker v-model="color" @change="$emit('colorPicked', color)" />
       </div>
     </el-tooltip>
@@ -69,6 +70,7 @@ export default {
   setup(_props) {
     const query = ref('');
     const color = ref('#800080');
+    const breakpoints = useBreakpoints();
 
     if (_props.listColor) {
       color.value = _props.listColor;
@@ -84,6 +86,7 @@ export default {
     return {
       query,
       color,
+      breakpoints,
     };
   },
 };

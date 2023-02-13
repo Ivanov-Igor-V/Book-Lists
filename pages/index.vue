@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { ElButton, ElDialog, ElSkeleton, ElSkeletonItem } from "element-plus";
+import { ElButton, ElDialog, ElSkeleton, ElSkeletonItem } from 'element-plus';
 
 export default {
   components: {
@@ -91,12 +91,12 @@ export default {
     const deleteDialogVisible = ref(false);
 
     const redirectToListCreation = () => {
-      router.push("lists/create");
+      router.push('lists/create');
     };
 
     const redirectToListUpdate = (_id) => {
       router.push({
-        name: "lists-id",
+        name: 'lists-id',
         params: { id: _id },
         query: { edit: true },
       });
@@ -104,7 +104,7 @@ export default {
 
     const deleteList = (_id) => {
       useMyFetch(`/lists/${_id}`, {
-        method: "DELETE",
+        method: 'DELETE',
         onResponse() {
           deleteDialogVisible.value = false;
           getMyLists();
@@ -128,7 +128,7 @@ export default {
 
 <style lang="scss" scoped>
 .lists {
-  width: 60%;
+  width: 90%;
   display: inline-block;
   text-align: center;
   padding-top: 30px;

@@ -6,10 +6,14 @@
         trigger="click"
         @visible-change="onDropdownVisibilityChange"
       >
-        <el-icon class="dropdown__toggler" :size="50">
+        <el-icon :size="50">
           <transition name="fade" mode="out-in">
-            <Expand v-if="!isDropdownOpen" />
-            <Fold v-else />
+            <!-- <Expand v-if="!isDropdownOpen" />
+            <Fold v-else /> -->
+            <Expand
+              class="dropdown__toggler"
+              :class="{ 'dropdown__toggler-reflected': isDropdownOpen }"
+            />
           </transition>
         </el-icon>
         <template #dropdown>
@@ -36,8 +40,13 @@
         My book lists
       </div>
     </header>
-    <div class="default-layout__main">
+    <div v-if="breakpoints.width > 500" class="default-layout__desktop">
       <div class="default-layout__content">
+        <slot />
+      </div>
+    </div>
+    <div v-else class="default-layout__mobile">
+      <div class="default-layout__content default-layout__content--mobile">
         <slot />
       </div>
     </div>
@@ -91,7 +100,12 @@ export default {
   height: 100vh;
   background: var(--color-1);
 
-  &__main {
+  &__desktop {
+    display: flex;
+    height: 100%;
+  }
+
+  &__mobile {
     display: flex;
     height: 100%;
   }
@@ -108,6 +122,13 @@ export default {
     text-align: center;
   }
 
+  &__content--mobile {
+    box-shadow: none;
+    border-radius: none;
+    margin: 0;
+    width: 100%;
+  }
+
   &__header {
     background-color: transparent;
     color: var(--color-2);
@@ -119,6 +140,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: sticky;
   }
 
   &__title {
@@ -129,11 +151,18 @@ export default {
 .dropdown {
   position: absolute;
   left: 5px;
+
+  &__toggler {
+    transition: transform 0.2s;
+  }
+  &__toggler-reflected {
+    transform: rotate(180deg);
+  }
 }
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.2s ease;
+  transition: opacity 0.1s ease;
 }
 
 .fade-enter-from,

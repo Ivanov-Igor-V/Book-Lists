@@ -16,13 +16,12 @@
         v-if="type === 'editable-item'"
         :popper-style="{ maxWidth: '200px' }"
         effect="dark"
-        placement="right"
+        placement="top"
         :show-after="500"
       >
         <template #content> Open details </template>
-        <el-icon>
+        <el-icon :size="28">
           <Document
-            :height="16"
             :color="textColor"
             @click="redirectToListInfo(info.id || info._id)"
           />
@@ -33,13 +32,12 @@
         v-if="type === 'editable-item'"
         :popper-style="{ maxWidth: '200px' }"
         effect="dark"
-        placement="right"
+        placement="top"
         :show-after="500"
       >
         <template #content> Edit list </template>
-        <el-icon>
+        <el-icon :size="28">
           <Edit
-            :height="16"
             :color="textColor"
             @click="$emit('edit', info.id || info._id)"
           />
@@ -50,14 +48,13 @@
         v-if="type === 'deletable-item' || type === 'editable-item'"
         :popper-style="{ maxWidth: '200px' }"
         effect="dark"
-        placement="right"
+        placement="top"
         :show-after="500"
       >
         <template #content> Delete list </template>
-        <el-icon>
+        <el-icon :size="28">
           <Delete
             v-if="type === 'deletable-item' || type === 'editable-item'"
-            :height="16"
             :color="textColor"
             @click="$emit('delete', info.id || info._id)"
           />
@@ -127,7 +124,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 20px;
+  height: 35px;
   outline: 1px solid var(--color-2);
   position: relative;
 
@@ -137,7 +134,7 @@ export default {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    font-size: 12px;
+    font-size: 16px;
   }
 
   &__icons {
