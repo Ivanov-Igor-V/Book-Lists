@@ -1,42 +1,10 @@
-# Nuxt 3 Minimal Starter
+Books-list
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+In this application, you can fetch a list of literary works on your request. The query can be, for example, the surname of the author or a word from the title of the book. By dragging the books you like to the right column and coming up with a name, you can save the list
 
-## Setup
-
-Make sure to install the dependencies:
-
-```bash
 # yarn
 yarn install
-
-# npm
-npm install
-
-# pnpm
-pnpm install --shamefully-hoist
-```
+yarn dev
 
 ## Development Server
-
 Start the development server on http://localhost:3000
-
-```bash
-npm run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-npm run build
-```
-
-Locally preview production build:
-
-```bash
-npm run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

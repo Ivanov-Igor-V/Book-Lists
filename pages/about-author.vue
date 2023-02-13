@@ -23,17 +23,16 @@
 
 <style lang="scss" scoped>
 .list {
-  display: flex;
   flex-direction: column;
   background: var(--color-9);
   border-radius: 10px;
   margin: auto;
   max-width: 300px;
   display: grid;
+  padding: 5px;
+  gap: 10px;
 
   &__item {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
     padding: 5px;
 
     p {
