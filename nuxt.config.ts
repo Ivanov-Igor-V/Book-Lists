@@ -13,7 +13,7 @@ export default defineNuxtConfig({
     head: {
       charset: "utf-16",
       title: "Book-lists",
-      meta: [{ name: "Book-lists", content: "Book-lists" }],
+      meta: [{ name: "Book-lists", content: "Book lists" }],
     },
     pageTransition: { name: "page", mode: "out-in" },
   },
